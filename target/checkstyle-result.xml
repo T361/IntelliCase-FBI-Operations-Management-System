@@ -1,3 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="9.3">
+<file name="/home/dns/Desktop/B-G19-i243166-i243158-i243015/src/main/java/com/intellicase/presentation/ViewRouter.java">
+</file>
+<file name="/home/dns/Desktop/B-G19-i243166-i243158-i243015/src/main/java/com/intellicase/presentation/MainApp.java">
+</file>
+<file name="/home/dns/Desktop/B-G19-i243166-i243158-i243015/src/main/java/com/intellicase/presentation/AudioFeedbackManager.java">
+</file>
+<file name="/home/dns/Desktop/B-G19-i243166-i243158-i243015/src/main/java/com/intellicase/presentation/GuidanceOverlayManager.java">
+</file>
+<file name="/home/dns/Desktop/B-G19-i243166-i243158-i243015/src/main/java/com/intellicase/presentation/RootLayoutController.java">
+</file>
+<file name="/home/dns/Desktop/B-G19-i243166-i243158-i243015/src/main/java/com/intellicase/presentation/EvidenceVaultController.java">
+</file>
+<file name="/home/dns/Desktop/B-G19-i243166-i243158-i243015/src/main/java/com/intellicase/presentation/CaseDashboardController.java">
+</file>
+<file name="/home/dns/Desktop/B-G19-i243166-i243158-i243015/src/main/java/com/intellicase/presentation/ParticleCanvas.java">
+</file>
+<file name="/home/dns/Desktop/B-G19-i243166-i243158-i243015/src/main/java/com/intellicase/presentation/MainMenuController.java">
+</file>
+<file name="/home/dns/Desktop/B-G19-i243166-i243158-i243015/src/main/java/com/intellicase/presentation/SecurityConsoleController.java">
+</file>
 </checkstyle>

@@ -9,17 +9,18 @@ import javafx.stage.Stage;
 
 /**
  * JavaFX entry point for IntelliCase UI.
- * GRASP Controller: presentation shell orchestrating the UI startup.
+ * GRASP Controller: presentation shell orchestrating the SPA startup.
  */
 public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/MainDashboard.fxml"));
-        Scene scene = new Scene(loader.load(), 1200, 720);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/RootLayout.fxml"));
+        Scene scene = new Scene(loader.load(), 1280, 800);
+        scene.getStylesheets().add(getClass().getResource("/ui/CyberpunkUI.css").toExternalForm());
         stage.setTitle("IntelliCase: FBI Operations Management System");
         stage.setScene(scene);
         stage.setMinWidth(1100);
-        stage.setMinHeight(680);
+        stage.setMinHeight(700);
         stage.show();
     }
 
@@ -27,3 +28,4 @@ public class MainApp extends Application {
         launch(args);
     }
 }
+

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.intellicase.presentation.MainMenuController"
+      spacing="24" alignment="TOP_CENTER" stylesheets="@CyberpunkUI.css">
+    <padding><Insets top="30" right="30" bottom="30" left="30" /></padding>
+
+    <Label text="FEDERAL OPERATIONS COMMAND CENTER" styleClass="page-title" />
+    <Label text="Select an operations module to begin." styleClass="page-subtitle" />
+
+    <HBox spacing="20" alignment="CENTER">
+        <VBox fx:id="securityCard" styleClass="nav-card" spacing="10" alignment="CENTER" onMouseClicked="#goSecurity">
+            <Label text="🛡" styleClass="card-icon" />
+            <Label text="SECURITY OPS" styleClass="card-title" />
+            <Label text="Shadow Profiles · Lockdown · Clearance" styleClass="card-desc" />
+            <Label text="UC-07 | UC-08 | UC-09 | UC-15" styleClass="card-uc" />
+        </VBox>
+        <VBox fx:id="evidenceCard" styleClass="nav-card" spacing="10" alignment="CENTER" onMouseClicked="#goEvidence">
+            <Label text="🔬" styleClass="card-icon" />
+            <Label text="EVIDENCE VAULT" styleClass="card-title" />
+            <Label text="Handshake · Load Scoring · Audit Trail" styleClass="card-desc" />
+            <Label text="UC-01 | UC-05 | UC-03" styleClass="card-uc" />
+        </VBox>
+        <VBox fx:id="caseCard" styleClass="nav-card" spacing="10" alignment="CENTER" onMouseClicked="#goCases">
+            <Label text="📁" styleClass="card-icon" />
+            <Label text="CASE DASHBOARD" styleClass="card-title" />
+            <Label text="Smart Cases · Evidence Inventory" styleClass="card-desc" />
+            <Label text="UC-11 | UC-14" styleClass="card-uc" />
+        </VBox>
+    </HBox>
+
+    <Separator styleClass="neon-separator" />
+
+    <Label text="SYSTEM HEALTH TELEMETRY" styleClass="section-title" />
+
+    <GridPane hgap="20" vgap="14" alignment="CENTER">
+        <VBox styleClass="metric-card" spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Label text="Active Cases" styleClass="neon-label" />
+            <Label fx:id="casesCountLabel" text="18" styleClass="metric-value" />
+        </VBox>
+        <VBox styleClass="metric-card" spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <Label text="Evidence Items" styleClass="neon-label" />
+            <Label fx:id="evidenceCountLabel" text="126" styleClass="metric-value" />
+        </VBox>
+        <VBox styleClass="metric-card" spacing="6" GridPane.columnIndex="2" GridPane.rowIndex="0">
+            <Label text="Agents Online" styleClass="neon-label" />
+            <Label fx:id="agentsCountLabel" text="9" styleClass="metric-value" />
+        </VBox>
+        <VBox styleClass="metric-card" spacing="6" GridPane.columnIndex="3" GridPane.rowIndex="0">
+            <Label text="Live Alerts" styleClass="neon-label" />
+            <Label fx:id="alertsCountLabel" text="3" styleClass="metric-value-alert" />
+        </VBox>
+    </GridPane>
+
+    <HBox spacing="30" alignment="CENTER">
+        <VBox spacing="6" alignment="CENTER">
+            <Label text="System Readiness" styleClass="section-title" />
+            <ProgressBar fx:id="readinessBar" prefWidth="260" progress="0.86" styleClass="neon-progress" />
+        </VBox>
+        <VBox spacing="6" alignment="CENTER">
+            <Label text="Network Integrity" styleClass="section-title" />
+            <ProgressBar fx:id="integrityBar" prefWidth="260" progress="0.92" styleClass="neon-progress" />
+        </VBox>
+        <VBox spacing="6" alignment="CENTER">
+            <Label text="Signal Strength" styleClass="section-title" />
+            <ProgressBar fx:id="signalBar" prefWidth="260" progress="0.78" styleClass="neon-progress" />
+        </VBox>
+    </HBox>
+</VBox>

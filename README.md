@@ -21,3 +21,4 @@ Pure Java 17 monolith with JavaFX frontend and SQLite backend using raw JDBC.
 - Run tests: `mvn -q test`
 - Lint (Checkstyle): `mvn -q checkstyle:check`
 - Run UI: `mvn -q javafx:run`
+# IntelliCase-FBI-Operations-Management-System

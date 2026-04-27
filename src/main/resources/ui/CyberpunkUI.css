@@ -1,0 +1,151 @@
+.root {
+    font-family: "Segoe UI", "Consolas", sans-serif;
+    background-color: radial-gradient(circle, rgba(0, 255, 204, 0.08), #050508 70%);
+    color: #e8f7ff;
+    -fx-font-family: "Segoe UI", "Consolas", sans-serif;
+    -fx-background-color: radial-gradient(radius 120%, rgba(0, 255, 204, 0.08), #050508 70%);
+    -fx-text-fill: #e8f7ff;
+}
+
+.sidebar {
+    background-color: rgba(18, 18, 24, 0.75);
+    border-color: #00f3ff;
+    border-width: 1px;
+    padding: 20;
+    -fx-background-color: rgba(18, 18, 24, 0.75);
+    -fx-border-color: linear-gradient(to bottom, #00f3ff, #ff2bd6);
+    -fx-border-width: 1px;
+    -fx-padding: 20;
+}
+
+.topbar {
+    background-color: rgba(20, 20, 26, 0.6);
+    border-color: #00f3ff;
+    border-width: 1px;
+    padding: 12 24;
+    -fx-background-color: rgba(20, 20, 26, 0.6);
+    -fx-border-color: linear-gradient(to right, #00f3ff, #ff2bd6);
+    -fx-border-width: 1px;
+    -fx-padding: 12 24;
+}
+
+.content-pane {
+    background-color: rgba(12, 12, 18, 0.55);
+    border-color: #00f3ff;
+    border-width: 1px;
+    border-radius: 14;
+    padding: 24;
+    -fx-background-color: rgba(12, 12, 18, 0.55);
+    -fx-background-radius: 14;
+    -fx-border-color: linear-gradient(to right, #00f3ff, #ff2bd6);
+    -fx-border-width: 1px;
+    -fx-border-radius: 14;
+    -fx-padding: 24;
+}
+
+.neon-title {
+    color: #00f3ff;
+    font-size: 22px;
+    font-weight: bold;
+    -fx-text-fill: #00f3ff;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.neon-label {
+    color: #d4faff;
+    -fx-text-fill: #d4faff;
+}
+
+.neon-button {
+    background-color: rgba(0, 0, 0, 0.25);
+    color: #e8f7ff;
+    border-color: #00f3ff;
+    border-radius: 8;
+    padding: 8 14;
+    -fx-background-color: rgba(0, 0, 0, 0.25);
+    -fx-text-fill: #e8f7ff;
+    -fx-border-color: #00f3ff;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 14;
+}
+
+.neon-button:hover {
+    box-shadow: 0 0 14px rgba(0, 243, 255, 0.9);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 243, 255, 0.9), 14, 0.6, 0, 0);
+}
+
+.neon-chip {
+    background-color: rgba(0, 243, 255, 0.1);
+    color: #9bf8ff;
+    border-color: #00f3ff;
+    border-radius: 14;
+    padding: 6 12;
+    -fx-background-color: rgba(0, 243, 255, 0.1);
+    -fx-text-fill: #9bf8ff;
+    -fx-border-color: #00f3ff;
+    -fx-border-radius: 14;
+    -fx-padding: 6 12;
+}
+
+.metric-card {
+    background-color: rgba(22, 22, 30, 0.7);
+    border-color: #00f3ff;
+    border-radius: 12;
+    border-width: 1px;
+    padding: 14;
+    -fx-background-color: rgba(22, 22, 30, 0.7);
+    -fx-background-radius: 12;
+    -fx-border-color: linear-gradient(to right, #00f3ff, #ff2bd6);
+    -fx-border-width: 1px;
+    -fx-border-radius: 12;
+    -fx-padding: 14;
+}
+
+.metric-value {
+    color: #f1fdff;
+    font-size: 18px;
+    font-weight: bold;
+    -fx-text-fill: #f1fdff;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.section-card {
+    background-color: rgba(25, 25, 30, 0.55);
+    border-radius: 12;
+    padding: 16;
+    -fx-background-color: rgba(25, 25, 30, 0.55);
+    -fx-background-radius: 12;
+    -fx-padding: 16;
+}
+
+.section-title {
+    color: #00f3ff;
+    font-size: 16px;
+    font-weight: bold;
+    -fx-text-fill: #00f3ff;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.neon-input {
+    background-color: rgba(20, 20, 26, 0.6);
+    color: #e8f7ff;
+    border-color: #00f3ff;
+    border-width: 0 0 2 0;
+    padding: 6 8;
+    -fx-background-color: rgba(20, 20, 26, 0.6);
+    -fx-text-fill: #e8f7ff;
+    -fx-border-color: #00f3ff;
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 6 8;
+}
+
+.list-view, .table-view {
+    background-color: rgba(12, 12, 18, 0.65);
+    -fx-background-color: rgba(12, 12, 18, 0.65);
+    -fx-control-inner-background: rgba(12, 12, 18, 0.65);
+    -fx-text-fill: #e8f7ff;
+}

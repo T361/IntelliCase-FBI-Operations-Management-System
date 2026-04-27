@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.intellicase.presentation.DashboardController"
+            stylesheets="@CyberpunkUI.css">
+    <left>
+        <VBox spacing="18" styleClass="sidebar">
+            <Label text="INTELLICASE" styleClass="neon-title" />
+            <Label text="Ops Navigator" styleClass="neon-label" />
+            <Button text="Security Ops" styleClass="neon-button" onAction="#showSecurityPanel" />
+            <Button text="Evidence Ops" styleClass="neon-button" onAction="#showEvidencePanel" />
+            <Button text="Case Ops" styleClass="neon-button" onAction="#showCasePanel" />
+            <Separator />
+            <Button text="Lockdown Status" styleClass="neon-button" onAction="#refreshStatus" />
+        </VBox>
+    </left>
+
+    <top>
+        <HBox spacing="16" styleClass="topbar">
+            <Label text="Active Agent: OMEGA-7" styleClass="neon-chip" />
+            <Label fx:id="timeLabel" text="00:00" styleClass="neon-chip" />
+            <Label fx:id="threatLabel" text="Threat: Low" styleClass="neon-chip" />
+            <Label fx:id="lockdownStatusLabel" text="Lockdown: INACTIVE" styleClass="neon-chip" />
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="18" styleClass="content-pane">
+            <Label fx:id="workspaceTitleLabel" text="Security Operations" styleClass="neon-title" />
+
+            <GridPane hgap="16" vgap="16">
+                <VBox styleClass="metric-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label text="Active Cases" styleClass="neon-label" />
+                    <Label fx:id="casesCountLabel" text="0" styleClass="metric-value" />
+                </VBox>
+                <VBox styleClass="metric-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label text="Evidence Items" styleClass="neon-label" />
+                    <Label fx:id="evidenceCountLabel" text="0" styleClass="metric-value" />
+                </VBox>
+                <VBox styleClass="metric-card" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <Label text="Agents Online" styleClass="neon-label" />
+                    <Label fx:id="agentsCountLabel" text="0" styleClass="metric-value" />
+                </VBox>
+                <VBox styleClass="metric-card" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                    <Label text="Alerts" styleClass="neon-label" />
+                    <Label fx:id="alertsCountLabel" text="0" styleClass="metric-value" />
+                </VBox>
+            </GridPane>
+
+            <HBox spacing="16">
+                <VBox spacing="12" styleClass="section-card" HBox.hgrow="ALWAYS">
+                    <Label text="Activity Feed" styleClass="section-title" />
+                    <ListView fx:id="activityList" prefHeight="220" />
+                    <Label text="Quick Actions" styleClass="section-title" />
+                    <HBox spacing="10">
+                        <Button text="Initiate Handshake" styleClass="neon-button" />
+                        <Button text="Create Case" styleClass="neon-button" />
+                        <Button text="Run Audit" styleClass="neon-button" />
+                    </HBox>
+                </VBox>
+
+                <VBox spacing="12" styleClass="section-card" HBox.hgrow="ALWAYS">
+                    <Label text="Evidence Monitor" styleClass="section-title" />
+                    <TableView fx:id="evidenceTable" prefHeight="260">
+                        <columns>
+                            <TableColumn fx:id="evidenceIdColumn" text="Evidence ID" prefWidth="140" />
+                            <TableColumn fx:id="evidenceStatusColumn" text="Status" prefWidth="120" />
+                            <TableColumn fx:id="evidenceCustodianColumn" text="Custodian" prefWidth="140" />
+                        </columns>
+                    </TableView>
+                </VBox>
+            </HBox>
+
+            <HBox spacing="16" styleClass="section-card">
+                <VBox spacing="6">
+                    <Label text="System Readiness" styleClass="section-title" />
+                    <ProgressBar fx:id="readinessBar" prefWidth="260" />
+                </VBox>
+                <VBox spacing="6">
+                    <Label text="Network Integrity" styleClass="section-title" />
+                    <ProgressBar fx:id="integrityBar" prefWidth="260" />
+                </VBox>
+                <VBox spacing="6">
+                    <Label text="Signal Strength" styleClass="section-title" />
+                    <ProgressBar fx:id="signalBar" prefWidth="260" />
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+
+    <padding>
+        <Insets top="16" right="16" bottom="16" left="16" />
+    </padding>
+</BorderPane>

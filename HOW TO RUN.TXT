@@ -1,0 +1,24 @@
+IntelliCase: How to Run
+
+Requirements:
+- Java 17+
+- Maven 3.8+
+
+Commands (run from project root):
+1) Lint (Checkstyle): mvn -q checkstyle:check
+2) Tests: mvn -q test
+3) Compile: mvn -q -DskipTests compile
+4) Launch JavaFX UI: mvn -q javafx:run
+
+Run everything together (DB init + tests + UI):
+1) Initialize DB schema: mvn -q -DskipTests org.codehaus.mojo:exec-maven-plugin:3.1.0:java -Dexec.mainClass=com.intellicase.data.SchemaInitializer
+2) Run tests: mvn -q test
+3) Launch UI: mvn -q javafx:run
+
+Single wrapper script:
+1) Make it executable: chmod +x run_all.sh
+2) Run all: ./run_all.sh
+
+Notes:
+- The JavaFX UI requires a graphical environment.
+- The SQLite database file will be created as ./intellicase.db on first run.

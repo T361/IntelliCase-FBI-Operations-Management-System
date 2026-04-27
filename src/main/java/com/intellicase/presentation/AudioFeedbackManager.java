@@ -59,8 +59,8 @@ public final class AudioFeedbackManager {
                 Clip clip = AudioSystem.getClip();
                 clip.open(ais);
                 clip.start();
-            } catch (LineUnavailableException | java.io.IOException ex) {
-                // Silent fail — audio is non-critical
+            } catch (Exception | UnsatisfiedLinkError ex) {
+                // Silent fail — audio is non-critical and Linux PipeWire Segfaults are swallowed
             }
         }, "audio-feedback").start();
     }

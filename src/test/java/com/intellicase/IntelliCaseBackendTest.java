@@ -36,10 +36,10 @@ public class IntelliCaseBackendTest {
         // Scaffold Tables
         try (Statement stmt = inMemoryDb.createStatement()) {
             stmt.execute("CREATE TABLE IF NOT EXISTS Agents (agentID TEXT PRIMARY KEY, name TEXT, clearanceLevel INTEGER, currentLoadScore INTEGER)");
-            stmt.execute("CREATE TABLE IF NOT EXISTS AuditLogs (logId TEXT PRIMARY KEY, actionType TEXT, targetId TEXT, timestamp TEXT, actorId TEXT)");
-            stmt.execute("CREATE TABLE IF NOT EXISTS ShadowProfiles (profileId TEXT PRIMARY KEY, alias TEXT, encryptedData TEXT, caseId TEXT)");
-            stmt.execute("CREATE TABLE IF NOT EXISTS Evidence (evidenceId TEXT PRIMARY KEY, description TEXT, status TEXT, caseId TEXT)");
-            stmt.execute("CREATE TABLE IF NOT EXISTS CaseFiles (caseId TEXT PRIMARY KEY, status TEXT, description TEXT, priority TEXT, location TEXT)");
+            stmt.execute("CREATE TABLE IF NOT EXISTS AuditLog (logID INTEGER PRIMARY KEY AUTOINCREMENT, action TEXT, targetID TEXT, timestamp TEXT, actorID TEXT)");
+            stmt.execute("CREATE TABLE IF NOT EXISTS ShadowProfiles (profileID TEXT PRIMARY KEY, alias TEXT, encryptedData TEXT, caseID TEXT)");
+            stmt.execute("CREATE TABLE IF NOT EXISTS Evidence (evidenceID TEXT PRIMARY KEY, caseID TEXT, status TEXT, custodian TEXT, integrityHash TEXT, sensitivityLevel INTEGER)");
+            stmt.execute("CREATE TABLE IF NOT EXISTS Cases (caseID TEXT PRIMARY KEY, status TEXT, description TEXT, priority TEXT, location TEXT)");
         }
     }
 
@@ -157,7 +157,7 @@ public class IntelliCaseBackendTest {
         
         List<AuditLogEntry> logs = dao.findByTargetId("TARGET_1");
         assertFalse(logs.isEmpty());
-        assertEquals("TEST_ACTION", logs.get(0).getActionType());
+        assertEquals("TEST_ACTION", logs.get(0).getAction());
     }
 
 

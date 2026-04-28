@@ -450,3 +450,79 @@
     -fx-background-radius: 6;
     -fx-border-radius: 6;
 }
+
+/* === OVERKILL OVERRIDE LAYER === */
+.root {
+    background-color: radial-gradient(circle, rgba(0, 243, 255, 0.18), rgba(255, 43, 214, 0.12), #020204 80%);
+    -fx-background-color: radial-gradient(radius 140%, rgba(0, 243, 255, 0.18), rgba(255, 43, 214, 0.12), #020204 80%);
+}
+
+.nav-button:hover,
+.action-button:hover,
+.neon-button:hover,
+.danger-button:hover {
+    -fx-effect: dropshadow(gaussian, #00f3ff, 25, 0.6, 0, 0);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-text-fill: #ffffff;
+}
+
+.glass-panel,
+.section-card,
+.metric-card,
+.form-card,
+.nav-card {
+    background-color: rgba(6, 6, 10, 0.75);
+    border-color: #00f3ff;
+    border-width: 1px;
+    border-radius: 14;
+    -fx-background-color: rgba(6, 6, 10, 0.75);
+    -fx-border-color: linear-gradient(to right, #00f3ff, #ff2bd6);
+    -fx-border-width: 1px;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-effect: dropshadow(gaussian, rgba(0, 243, 255, 0.25), 16, 0.4, 0, 0);
+}
+
+.table-row-cell:filled:hover {
+    background-color: rgba(0, 243, 255, 0.18);
+    -fx-background-color: rgba(0, 243, 255, 0.18);
+    -fx-effect: dropshadow(gaussian, rgba(0, 243, 255, 0.6), 20, 0.5, 0, 0);
+}
+
+.hud-overlay {
+    background-color: rgba(10, 10, 16, 0.92);
+    border-color: #ffe66d;
+    border-radius: 12;
+    padding: 12;
+    -fx-background-color: rgba(10, 10, 16, 0.92);
+    -fx-border-color: #ffe66d;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 12;
+    -fx-text-fill: #ffe66d;
+}
+
+/* === TEXT FIELD / TEXT AREA DARK MODE OVERRIDE === */
+.text-field, .text-area {
+    -fx-background-color: rgba(5, 5, 10, 0.85);
+    -fx-border-color: #00f3ff;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 4px;
+    -fx-text-fill: #00f3ff;
+    -fx-font-family: 'Consolas', monospace;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-prompt-text-fill: #444455;
+}
+.text-area .content {
+    -fx-background-color: transparent;
+}
+.text-area .viewport {
+    -fx-background-color: transparent;
+}
+.text-field:focused, .text-area:focused {
+    -fx-border-color: #ff00e6;
+    -fx-effect: dropshadow(gaussian, #ff00e6, 15, 0.5, 0, 0);
+    -fx-text-fill: #ffffff;
+}

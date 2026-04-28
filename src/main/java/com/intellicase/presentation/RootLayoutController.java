@@ -7,6 +7,7 @@ import com.intellicase.application.SystemState;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,8 +17,9 @@ import javafx.util.Duration;
 
 /**
  * Controller for RootLayout.fxml. Manages sidebar navigation,
- * topbar status updates, and ParticleCanvas initialization.
+ * topbar status updates, and particle engine initialization.
  */
+@SuppressWarnings("unused")
 public class RootLayoutController {
     @FXML
     private StackPane rootStack;
@@ -49,25 +51,26 @@ public class RootLayoutController {
     @FXML
     private Button navCases;
 
-    private ParticleCanvas particleCanvas;
+    private com.intellicase.presentation.effects.HyperParticleEngine particleEngine;
 
     @FXML
     private void initialize() {
-        initParticleCanvas();
+        initParticleEngine();
         initViewRouter();
         initClock();
-        attachAudioFeedback();
         refreshLockdownStatus();
+        applyMotion();
         ViewRouter.getInstance().navigateTo("/ui/MainMenu.fxml");
-        initGuidance();
+        Platform.runLater(this::initGuidance);
+        Platform.runLater(() -> AudioFeedbackManager.bindToScene(rootStack.getScene()));
     }
 
-    private void initParticleCanvas() {
-        particleCanvas = new ParticleCanvas();
-        particleCanvas.widthProperty().bind(rootStack.widthProperty());
-        particleCanvas.heightProperty().bind(rootStack.heightProperty());
-        particleCanvas.setMouseTransparent(true);
-        rootStack.getChildren().add(0, particleCanvas);
+    private void initParticleEngine() {
+        particleEngine = new com.intellicase.presentation.effects.HyperParticleEngine();
+        particleEngine.widthProperty().bind(rootStack.widthProperty());
+        particleEngine.heightProperty().bind(rootStack.heightProperty());
+        particleEngine.setMouseTransparent(true);
+        rootStack.getChildren().add(0, particleEngine);
     }
 
     private void initViewRouter() {
@@ -100,16 +103,15 @@ public class RootLayoutController {
             : "-fx-text-fill: #00ff88;");
     }
 
-    private void attachAudioFeedback() {
-        AudioFeedbackManager.attachTo(navMainMenu);
-        AudioFeedbackManager.attachTo(navSecurity);
-        AudioFeedbackManager.attachTo(navEvidence);
-        AudioFeedbackManager.attachTo(navCases);
+    private void initGuidance() {
+        com.intellicase.presentation.effects.HUDGuidanceOverlay.highlight(navSecurity,
+            "Start here → Open Security Ops to manage profiles & lockdowns");
     }
 
-    private void initGuidance() {
-        GuidanceOverlayManager.highlightNode(navSecurity,
-            "Start here → Open Security Ops to manage profiles & lockdowns");
+    @FXML
+    private void applyMotion() {
+        com.intellicase.presentation.effects.AnimationUtils.applyFloating(mainBorder);
+        com.intellicase.presentation.effects.AnimationUtils.applyBreathing(navMainMenu);
     }
 
     @FXML
@@ -121,21 +123,21 @@ public class RootLayoutController {
     @FXML
     private void goSecurity() {
         ViewRouter.getInstance().navigateTo("/ui/SecurityConsole.fxml");
-        GuidanceOverlayManager.clearHighlights();
+        com.intellicase.presentation.effects.HUDGuidanceOverlay.clear();
         refreshLockdownStatus();
     }
 
     @FXML
     private void goEvidence() {
         ViewRouter.getInstance().navigateTo("/ui/EvidenceVault.fxml");
-        GuidanceOverlayManager.clearHighlights();
+        com.intellicase.presentation.effects.HUDGuidanceOverlay.clear();
         refreshLockdownStatus();
     }
 
     @FXML
     private void goCases() {
         ViewRouter.getInstance().navigateTo("/ui/CaseDashboard.fxml");
-        GuidanceOverlayManager.clearHighlights();
+        com.intellicase.presentation.effects.HUDGuidanceOverlay.clear();
         refreshLockdownStatus();
     }
 }

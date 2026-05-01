@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -29,6 +30,7 @@ public final class AppStageManager {
     private static void setRootOrNewScene(Parent root) {
         if (primaryStage.getScene() == null) {
             Scene scene = new Scene(root, 1280, 820);
+            scene.setFill(Color.BLACK);
             scene.getStylesheets().add(
                 AppStageManager.class.getResource("/ui/CyberpunkUI.css").toExternalForm());
             primaryStage.setScene(scene);

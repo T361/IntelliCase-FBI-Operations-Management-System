@@ -6,7 +6,10 @@
 /* === ROOT === */
 .root {
     -fx-font-family: "Inter", "Consolas", monospace;
-    -fx-background-color: #0B1120;
+    -fx-background-color: #000000;
+    -fx-base: #000000;
+    -fx-background: #000000;
+    -fx-control-inner-background: #0B1120;
     -fx-text-fill: #F3F4F6;
 }
 
@@ -575,8 +578,11 @@
 
 /* === OVERKILL OVERRIDE LAYER === */
 .root {
-    background-color: radial-gradient(circle, rgba(212, 175, 55, 0.18), rgba(138, 112, 25, 0.12), #080C17 80%);
-    -fx-background-color: radial-gradient(radius 140%, rgba(212, 175, 55, 0.18), rgba(138, 112, 25, 0.12), #080C17 80%);
+    background-color: radial-gradient(circle, rgba(212, 175, 55, 0.18), rgba(138, 112, 25, 0.12), #000000 80%);
+    -fx-background-color: radial-gradient(radius 140%, rgba(212, 175, 55, 0.10), rgba(138, 112, 25, 0.06), #000000 80%);
+    -fx-base: #000000;
+    -fx-background: #000000;
+    -fx-control-inner-background: #0A0A12;
 }
 
 .nav-button:hover,
@@ -881,4 +887,77 @@
     -fx-border-width: 1;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
+}
+
+/* ============================================================
+   NUCLEAR BLACK BACKGROUND OVERRIDE
+   Eliminates ALL default white backgrounds from JavaFX controls.
+   ============================================================ */
+.tab-pane,
+.tab-pane > .tab-header-area,
+.tab-pane > .tab-header-area > .headers-region,
+.tab-pane > .tab-content-area,
+.titled-pane,
+.titled-pane > .content,
+.accordion,
+.accordion > .titled-pane > .content,
+.dialog-pane,
+.dialog-pane > .content,
+.split-pane,
+.split-pane > .split-pane-divider,
+.pagination,
+.pagination > .page {
+    -fx-background-color: #000000;
+    -fx-background: #000000;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-bar,
+.scroll-bar > .track,
+.scroll-bar > .track-background {
+    -fx-background-color: rgba(0, 0, 0, 0.6);
+}
+
+.scroll-bar > .increment-button,
+.scroll-bar > .decrement-button {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: rgba(212, 175, 55, 0.3);
+}
+
+.check-box,
+.radio-button {
+    -fx-text-fill: #d4faff;
+}
+
+.check-box > .box,
+.radio-button > .radio {
+    -fx-background-color: rgba(5, 5, 10, 0.85);
+    -fx-border-color: rgba(212, 175, 55, 0.4);
+}
+
+.menu-bar {
+    -fx-background-color: #000000;
+}
+
+.context-menu {
+    -fx-background-color: rgba(5, 5, 12, 0.97);
+    -fx-border-color: rgba(212, 175, 55, 0.4);
+}
+
+.menu-item {
+    -fx-background-color: transparent;
+}
+
+.menu-item:hover,
+.menu-item:focused {
+    -fx-background-color: rgba(212, 175, 55, 0.15);
 }

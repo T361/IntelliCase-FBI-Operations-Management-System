@@ -77,4 +77,17 @@ public class AuditLogDao {
         }
         return logs;
     }
+
+    public int count() {
+        String sql = "SELECT COUNT(*) FROM AuditLog";
+        try (PreparedStatement statement = databaseConnection.getConnection().prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("[DAO] Audit log count failed: " + ex.getMessage());
+        }
+        return 0;
+    }
 }

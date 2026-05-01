@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.intellicase.presentation.LockdownControlController"
+            fitToWidth="true" styleClass="scroll-pane" stylesheets="@CyberpunkUI.css">
+
+<VBox spacing="24" alignment="TOP_LEFT">
+    <padding><Insets top="28" right="28" bottom="28" left="28" /></padding>
+
+    <!-- Page Header -->
+    <VBox spacing="4">
+        <Label text="🔓  UC-15  ·  DEACTIVATE SYSTEM AUDIT LOCKDOWN" styleClass="page-title" />
+        <Label text="Authorized Director or System Administrator deactivates lockdown and restores global operations."
+               styleClass="page-subtitle" />
+    </VBox>
+
+    <!-- Live Lockdown Status Banner -->
+    <VBox fx:id="lockdownBanner" styleClass="lockdown-banner-normal" spacing="8">
+        <padding><Insets top="16" right="24" bottom="16" left="24" /></padding>
+        <HBox spacing="16" alignment="CENTER_LEFT">
+            <Circle fx:id="statusDot" radius="8" styleClass="status-dot" />
+            <VBox spacing="2">
+                <Label fx:id="lockdownStatusTitle"
+                       text="SYSTEM STATUS: NORMAL — LOCKDOWN NOT ACTIVE"
+                       styleClass="lockdown-status-title-normal" />
+                <Label fx:id="lockdownStatusSub"
+                       text="No active lockdown detected. Nothing to deactivate."
+                       styleClass="audit-subtitle" />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <VBox spacing="2" alignment="CENTER_RIGHT">
+                <Label fx:id="lockdownTimestampLabel" text="" styleClass="audit-footer-label" />
+                <Label fx:id="lockdownActorLabel" text="" styleClass="audit-footer-label" />
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <HBox spacing="24">
+
+        <!-- LEFT: UC-15 Deactivation Panel -->
+        <VBox spacing="0" HBox.hgrow="ALWAYS" styleClass="audit-panel">
+
+            <HBox styleClass="audit-header" alignment="CENTER_LEFT" spacing="12">
+                <padding><Insets top="16" right="20" bottom="16" left="20" /></padding>
+                <Label text="🔓" styleClass="card-icon" />
+                <VBox spacing="2">
+                    <Label text="LOCKDOWN DEACTIVATION SEQUENCE" styleClass="audit-title" />
+                    <Label text="Multi-factor authorization required. All steps must complete in order."
+                           styleClass="audit-subtitle" />
+                </VBox>
+            </HBox>
+
+            <VBox spacing="20" style="-fx-padding: 20 20 20 20;">
+
+                <!-- Step 1: Ledger Sync Check -->
+                <VBox spacing="10" styleClass="lockdown-step">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="STEP 1" styleClass="step-badge" />
+                        <Label text="DISTRIBUTED LEDGER INTEGRITY CHECK  (SR-3)" styleClass="field-label" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label fx:id="ledgerStatusLabel" text="PENDING..." styleClass="audit-footer-label" />
+                    </HBox>
+                    <Label text="Verifies all backup logs are synced before lifting the lockdown."
+                           styleClass="audit-subtitle" />
+                    <Button fx:id="ledgerCheckBtn" text="🔗  RUN LEDGER SYNC CHECK"
+                            styleClass="action-button" onAction="#handleLedgerCheck"
+                            maxWidth="Infinity" />
+                </VBox>
+
+                <Separator styleClass="neon-separator" />
+
+                <!-- Step 2: MFA Credentials -->
+                <VBox spacing="12" styleClass="lockdown-step">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="STEP 2" styleClass="step-badge" />
+                        <Label text="MULTI-FACTOR AUTHENTICATION  (SR-1 / E1 / E3)" styleClass="field-label" />
+                    </HBox>
+                    <GridPane hgap="16" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50" />
+                            <ColumnConstraints percentWidth="50" />
+                        </columnConstraints>
+                        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="DIRECTOR ID" styleClass="field-label" />
+                            <TextField fx:id="directorIdField" promptText="DIR-0001"
+                                       styleClass="text-field" />
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="PASSWORD / MFA CODE" styleClass="field-label" />
+                            <PasswordField fx:id="directorPasswordField"
+                                          promptText="Enter Director password"
+                                          styleClass="text-field" />
+                        </VBox>
+                    </GridPane>
+                    <Label text="ℹ  Credentials:  ID = DIR-0001  |  Password = BLACKSITE-ALPHA  |  E1 test: wrong password  |  E3: ADMIN-001 / any"
+                           styleClass="lockdown-hint" />
+                </VBox>
+
+                <Separator styleClass="neon-separator" />
+
+                <!-- Step 3: Override Code + Confirm -->
+                <VBox spacing="12" styleClass="lockdown-step">
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="STEP 3" styleClass="step-badge" />
+                        <Label text="OVERRIDE CODE + DEACTIVATION CONFIRMATION  (E2)" styleClass="field-label" />
+                    </HBox>
+                    <GridPane hgap="16" vgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="60" />
+                            <ColumnConstraints percentWidth="40" />
+                        </columnConstraints>
+                        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <Label text="OVERRIDE CODE" styleClass="field-label" />
+                            <TextField fx:id="overrideCodeField" promptText="NCIS-X-99"
+                                       styleClass="text-field" />
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            <Label text="CONFIRMATION" styleClass="field-label" />
+                            <TextField fx:id="confirmTextField" promptText="Type CONFIRM"
+                                       styleClass="text-field" />
+                        </VBox>
+                    </GridPane>
+                    <Label text="ℹ  Override code = NCIS-X-99  |  Type CONFIRM exactly to confirm deactivation"
+                           styleClass="lockdown-hint" />
+                    <Button fx:id="deactivateBtn" text="🔓  DEACTIVATE SYSTEM LOCKDOWN"
+                            styleClass="action-button-glow" onAction="#handleDeactivateLockdown"
+                            maxWidth="Infinity" />
+                    <Label fx:id="deactivateResultLabel" text="" styleClass="audit-result-label" />
+                </VBox>
+
+                <!-- Post-deactivation broadcast panel -->
+                <VBox fx:id="broadcastPanel" spacing="8" styleClass="doj-panel"
+                      managed="false" visible="false">
+                    <padding><Insets top="14" right="18" bottom="14" left="18" /></padding>
+                    <Label text="📡  GLOBAL BROADCAST ALERT SENT  (Special Requirement 2)"
+                           styleClass="section-title" />
+                    <Label fx:id="broadcastTimestampLabel" text="" styleClass="neon-label" />
+                    <Label text="All personnel notified: System has resumed normal operations."
+                           styleClass="audit-subtitle" />
+                    <Label text="DOJ auditors notified of lockdown deactivation event."
+                           styleClass="audit-subtitle" />
+                </VBox>
+            </VBox>
+        </VBox>
+
+        <!-- RIGHT: Info Panel -->
+        <VBox spacing="20" prefWidth="310">
+
+            <VBox styleClass="form-card" spacing="14">
+                <Label text="📋  DEACTIVATION PROTOCOL" styleClass="section-title" />
+                <Separator styleClass="neon-separator" />
+                <Label text="EXTENSIONS COVERED:" styleClass="field-label" />
+                <Label text="E1 — Auth failure: Access denied + secondary lockdown alert logged."
+                       styleClass="card-desc" />
+                <Label text="E2 — Nodes fail to sync: Deactivation delayed until ledger confirms integrity."
+                       styleClass="card-desc" />
+                <Label text="E3 — Unauthorized admin: Regular admins cannot unlock without Director co-auth."
+                       styleClass="card-desc" />
+                <Separator styleClass="neon-separator" />
+                <Label text="SPECIAL REQUIREMENTS:" styleClass="field-label" />
+                <Label text="SR-1: MFA required (Director ID + Password)." styleClass="card-desc" />
+                <Label text="SR-2: Global broadcast sent on deactivation." styleClass="card-desc" />
+                <Label text="SR-3: All backup logs synced before unlock." styleClass="card-desc" />
+            </VBox>
+
+            <VBox styleClass="form-card" spacing="14">
+                <Label text="🔐  QUICK TEST GUIDE" styleClass="section-title" />
+                <Separator styleClass="neon-separator" />
+                <Label text="Director ID:" styleClass="field-label" />
+                <Label text="DIR-0001" styleClass="neon-label" />
+                <Label text="Password:" styleClass="field-label" />
+                <Label text="BLACKSITE-ALPHA" styleClass="neon-label" />
+                <Label text="Override Code:" styleClass="field-label" />
+                <Label text="NCIS-X-99" styleClass="neon-label" />
+                <Label text="Confirmation:" styleClass="field-label" />
+                <Label text="CONFIRM" styleClass="neon-label" />
+                <Separator styleClass="neon-separator" />
+                <Label text="First activate lockdown via 'Security Ops' then return here to deactivate."
+                       styleClass="card-desc" />
+            </VBox>
+        </VBox>
+    </HBox>
+</VBox>
+</ScrollPane>

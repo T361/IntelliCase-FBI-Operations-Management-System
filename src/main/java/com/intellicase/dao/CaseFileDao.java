@@ -94,4 +94,17 @@ public class CaseFileDao {
         }
         return cases;
     }
+
+    public int count() {
+        String sql = "SELECT COUNT(*) FROM Cases";
+        try (PreparedStatement statement = databaseConnection.getConnection().prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("[DAO] Case count failed: " + ex.getMessage());
+        }
+        return 0;
+    }
 }

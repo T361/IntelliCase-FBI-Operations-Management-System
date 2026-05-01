@@ -2,13 +2,12 @@ package com.intellicase.presentation;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for MainMenu.fxml — the landing page with navigation cards
- * and system health telemetry.
+ * Controller for MainMenu.fxml — landing page after authentication.
+ * Displays live DB counters and a role-aware welcome message.
  */
 public class MainMenuController {
     @FXML
@@ -33,19 +32,43 @@ public class MainMenuController {
     private Label alertsCountLabel;
 
     @FXML
-    private ProgressBar readinessBar;
-
-    @FXML
-    private ProgressBar integrityBar;
-
-    @FXML
-    private ProgressBar signalBar;
+    private Label welcomeLabel;
 
     @FXML
     private void initialize() {
         AudioFeedbackManager.attachTo(securityCard);
         AudioFeedbackManager.attachTo(evidenceCard);
         AudioFeedbackManager.attachTo(caseCard);
+        refreshCounts();
+        refreshWelcome();
+        applyRoleVisibility();
+    }
+
+    private void applyRoleVisibility() {
+        String role = SessionManager.getInstance().getRole();
+        if ("FIELD_AGENT".equals(role)) {
+            securityCard.setVisible(false);
+            securityCard.setManaged(false);
+        }
+    }
+
+    private void refreshWelcome() {
+        SessionManager sm = SessionManager.getInstance();
+        String name = sm.isLoggedIn() ? sm.getDisplayName() : "Agent";
+        String role = sm.isLoggedIn() ? sm.getRole().replace('_', ' ') : "";
+        welcomeLabel.setText("Welcome back, " + name
+            + (role.isEmpty() ? "." : " \u00b7 " + role));
+    }
+
+    private void refreshCounts() {
+        casesCountLabel.setText(
+            String.valueOf(new com.intellicase.dao.CaseFileDao().count()));
+        evidenceCountLabel.setText(
+            String.valueOf(new com.intellicase.dao.EvidenceDao().count()));
+        agentsCountLabel.setText(
+            String.valueOf(new com.intellicase.dao.AgentDao().count()));
+        alertsCountLabel.setText(
+            String.valueOf(new com.intellicase.dao.AuditLogDao().count()));
     }
 
     @FXML

@@ -9,15 +9,21 @@ public class ShadowProfile {
     private String alias;
     private String encryptedData;
     private String caseId;
+    private String creatorAgentId;
 
     public ShadowProfile() {
     }
 
-    public ShadowProfile(String profileId, String alias, String encryptedData, String caseId) {
+    public ShadowProfile(String profileId, String alias, String encryptedData, String caseId, String creatorAgentId) {
         this.profileId = profileId;
         this.alias = alias;
         this.encryptedData = encryptedData;
         this.caseId = caseId;
+        this.creatorAgentId = creatorAgentId;
+    }
+
+    public ShadowProfile(String profileId, String alias, String encryptedData, String caseId) {
+        this(profileId, alias, encryptedData, caseId, "UNKNOWN");
     }
 
     public String getProfileId() {
@@ -50,5 +56,13 @@ public class ShadowProfile {
 
     public void setCaseId(String caseId) {
         this.caseId = caseId;
+    }
+
+    public String getCreatorAgentId() {
+        return creatorAgentId;
+    }
+
+    public void setCreatorAgentId(String creatorAgentId) {
+        this.creatorAgentId = creatorAgentId;
     }
 }

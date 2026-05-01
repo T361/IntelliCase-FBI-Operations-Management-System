@@ -55,6 +55,21 @@ public class EvidenceDao {
         }
     }
 
+    public void updateCustodian(String evidenceId, String newCustodian) {
+        if (SystemState.getInstance().isLockdownActive()) {
+            System.out.println("[DAO] Lockdown active; custodian update blocked.");
+            return;
+        }
+        String sql = "UPDATE Evidence SET custodian = ? WHERE evidenceID = ?";
+        try (PreparedStatement statement = databaseConnection.getConnection().prepareStatement(sql)) {
+            statement.setString(1, newCustodian);
+            statement.setString(2, evidenceId);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("[DAO] Custodian update failed: " + ex.getMessage());
+        }
+    }
+
     public Evidence findById(String evidenceId) {
         String sql = "SELECT evidenceID, caseID, status, custodian, integrityHash, sensitivityLevel " +
             "FROM Evidence WHERE evidenceID = ?";
@@ -97,5 +112,42 @@ public class EvidenceDao {
             System.out.println("[DAO] Evidence list failed: " + ex.getMessage());
         }
         return evidence;
+    }
+
+    public List<Evidence> findByCaseId(String caseId) {
+        List<Evidence> evidence = new ArrayList<>();
+        String sql = "SELECT evidenceID, caseID, status, custodian, integrityHash, sensitivityLevel "
+            + "FROM Evidence WHERE caseID = ?";
+        try (PreparedStatement statement = databaseConnection.getConnection().prepareStatement(sql)) {
+            statement.setString(1, caseId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    evidence.add(new Evidence(
+                        resultSet.getString("evidenceID"),
+                        resultSet.getString("caseID"),
+                        resultSet.getString("status"),
+                        resultSet.getString("custodian"),
+                        resultSet.getString("integrityHash"),
+                        resultSet.getInt("sensitivityLevel")
+                    ));
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("[DAO] Evidence by case lookup failed: " + ex.getMessage());
+        }
+        return evidence;
+    }
+
+    public int count() {
+        String sql = "SELECT COUNT(*) FROM Evidence";
+        try (PreparedStatement statement = databaseConnection.getConnection().prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("[DAO] Evidence count failed: " + ex.getMessage());
+        }
+        return 0;
     }
 }

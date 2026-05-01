@@ -12,7 +12,7 @@ import com.intellicase.domain.Evidence;
  * GRASP Controller implementing UC-11, UC-14, UC-15.
  */
 public class CaseController {
-    private static final String OVERRIDE_CODE = "OVERRIDE-ALPHA";
+    private static final String OVERRIDE_CODE = "NCIS-X-99";
 
     private final CaseFileDao caseFileDao;
     private final AuditLogDao auditLogDao;
@@ -49,10 +49,17 @@ public class CaseController {
     }
 
     /**
-     * UC-14: Secure Evidence Inventory Audit.
+     * UC-14: Secure Evidence Inventory Audit — all evidence.
      */
     public List<Evidence> secureEvidenceAudit(String agentId) {
         return evidenceAuditService.getEvidenceInventory(agentId);
+    }
+
+    /**
+     * UC-14: Secure Evidence Inventory Audit — filtered by Case ID.
+     */
+    public List<Evidence> secureEvidenceAudit(String agentId, String caseIdFilter) {
+        return evidenceAuditService.getEvidenceInventory(agentId, caseIdFilter);
     }
 
     /**

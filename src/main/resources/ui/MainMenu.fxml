@@ -56,18 +56,7 @@
         </VBox>
     </GridPane>
 
-    <HBox spacing="30" alignment="CENTER">
-        <VBox spacing="6" alignment="CENTER">
-            <Label text="System Readiness" styleClass="section-title" />
-            <ProgressBar fx:id="readinessBar" prefWidth="260" progress="0.86" styleClass="neon-progress" />
-        </VBox>
-        <VBox spacing="6" alignment="CENTER">
-            <Label text="Network Integrity" styleClass="section-title" />
-            <ProgressBar fx:id="integrityBar" prefWidth="260" progress="0.92" styleClass="neon-progress" />
-        </VBox>
-        <VBox spacing="6" alignment="CENTER">
-            <Label text="Signal Strength" styleClass="section-title" />
-            <ProgressBar fx:id="signalBar" prefWidth="260" progress="0.78" styleClass="neon-progress" />
-        </VBox>
-    </HBox>
+    <Label fx:id="welcomeLabel" text="Welcome back, Agent."
+           style="-fx-font-size: 13px; -fx-text-fill: rgba(201,169,77,0.65);
+                  -fx-font-style: italic; -fx-padding: 4 0 0 0;" />
 </VBox>

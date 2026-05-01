@@ -164,8 +164,8 @@ public final class AudioFeedbackManager {
 
     /** Attach hover and click listeners to a single Node. */
     public static void attachTo(Node node) {
-        node.setOnMouseEntered(e -> playHover());
-        node.setOnMouseClicked(e -> playClick());
+        node.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, e -> playHover());
+        node.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, e -> playClick());
     }
 
     /**
@@ -185,8 +185,8 @@ public final class AudioFeedbackManager {
         if (node instanceof Button
             || node instanceof TextField
             || node instanceof TextArea) {
-            node.setOnMouseEntered(e -> playHover());
-            node.setOnMouseClicked(e -> playClick());
+            node.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, e -> playHover());
+            node.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, e -> playClick());
         }
         if (node instanceof Parent) {
             for (Node child : ((Parent) node).getChildrenUnmodifiable()) {

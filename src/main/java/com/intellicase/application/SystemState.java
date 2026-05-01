@@ -23,11 +23,39 @@ public final class SystemState {
         return lockdownActive;
     }
 
-    public synchronized void activateLockdown() {
+    private String lockdownTimestamp;
+    private String lockdownActorId;
+    private boolean upsCheckPassed;
+
+    public synchronized void activateLockdown(String actorId, String timestamp) {
         lockdownActive = true;
+        lockdownActorId = actorId;
+        lockdownTimestamp = timestamp;
+    }
+
+    public synchronized void activateLockdown() {
+        activateLockdown("SYSTEM", java.time.Instant.now().toString());
     }
 
     public synchronized void deactivateLockdown() {
         lockdownActive = false;
+        lockdownActorId = null;
+        lockdownTimestamp = null;
+    }
+
+    public synchronized String getLockdownTimestamp() {
+        return lockdownTimestamp;
+    }
+
+    public synchronized String getLockdownActorId() {
+        return lockdownActorId;
+    }
+
+    public synchronized boolean isUpsCheckPassed() {
+        return upsCheckPassed;
+    }
+
+    public synchronized void setUpsCheckPassed(boolean passed) {
+        upsCheckPassed = passed;
     }
 }

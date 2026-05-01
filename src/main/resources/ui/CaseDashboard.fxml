@@ -3,50 +3,161 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
 
 <ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.intellicase.presentation.CaseDashboardController"
             fitToWidth="true" styleClass="scroll-pane" stylesheets="@CyberpunkUI.css">
-<VBox spacing="20" alignment="TOP_LEFT">
-    <padding><Insets top="24" right="24" bottom="24" left="24" /></padding>
+<VBox spacing="24" alignment="TOP_LEFT">
+    <padding><Insets top="28" right="28" bottom="28" left="28" /></padding>
 
-    <Label text="CASE MANAGEMENT DASHBOARD" styleClass="page-title" />
-    <Label text="Initialize new investigations and audit evidence integrity." styleClass="page-subtitle" />
-
-    <!-- UC-11: Create Smart Case -->
-    <VBox styleClass="form-card" spacing="12">
-        <Label text="UC-11: Create Smart Case Initializer" styleClass="section-title" />
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <VBox spacing="4"><Label text="Status" styleClass="field-label" /><TextField fx:id="caseStatusField" promptText="OPEN" styleClass="neon-input" prefWidth="120" /></VBox>
-            <VBox spacing="4"><Label text="Priority" styleClass="field-label" /><TextField fx:id="casePriorityField" promptText="HIGH" styleClass="neon-input" prefWidth="100" /></VBox>
-            <VBox spacing="4"><Label text="Location" styleClass="field-label" /><TextField fx:id="caseLocationField" promptText="Field Office" styleClass="neon-input" prefWidth="160" /></VBox>
-        </HBox>
-        <VBox spacing="4">
-            <Label text="Description" styleClass="field-label" />
-            <TextArea fx:id="caseDescriptionArea" promptText="Enter case description..." styleClass="neon-input" prefHeight="80" />
-        </VBox>
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <Button fx:id="createCaseBtn" text="➕ Create Smart Case" styleClass="action-button" onAction="#handleCreateSmartCase" />
-            <Label fx:id="caseResultLabel" text="" styleClass="result-label" />
-        </HBox>
+    <!-- Page Header -->
+    <VBox spacing="4">
+        <Label text="🕵️  CASE MANAGEMENT TERMINAL" styleClass="page-title" />
+        <Label text="Initialize federal investigations and conduct secure evidence chain-of-custody audits."
+               styleClass="page-subtitle" />
     </VBox>
+
+    <!-- UC-11 + System Status -->
+    <HBox spacing="24">
+        <VBox styleClass="form-card" spacing="16" HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label text="📁" styleClass="card-icon" />
+                <VBox spacing="2">
+                    <Label text="UC-11  ·  SMART CASE INITIALIZER" styleClass="section-title" />
+                    <Label text="Factory-pattern case creation with auto-generated identifiers."
+                           styleClass="card-uc" />
+                </VBox>
+            </HBox>
+            <Separator styleClass="neon-separator" />
+            <GridPane hgap="16" vgap="14">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="33" />
+                    <ColumnConstraints percentWidth="33" />
+                    <ColumnConstraints percentWidth="34" />
+                </columnConstraints>
+                <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label text="OPERATIONAL STATUS" styleClass="field-label" />
+                    <ComboBox fx:id="caseStatusBox" maxWidth="Infinity" styleClass="combo-box" />
+                </VBox>
+                <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label text="RESPONSE PRIORITY" styleClass="field-label" />
+                    <ComboBox fx:id="casePriorityBox" maxWidth="Infinity" styleClass="combo-box" />
+                </VBox>
+                <VBox spacing="6" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <Label text="OPERATIONAL REGION" styleClass="field-label" />
+                    <ComboBox fx:id="caseRegionBox" maxWidth="Infinity" styleClass="combo-box"
+                              onAction="#handleRegionChange" />
+                </VBox>
+                <VBox spacing="6" GridPane.columnSpan="3" GridPane.rowIndex="1">
+                    <Label text="DEPLOYMENT LOCATION" styleClass="field-label" />
+                    <ComboBox fx:id="caseLocationBox" maxWidth="Infinity" styleClass="combo-box" />
+                </VBox>
+                <VBox spacing="6" GridPane.columnSpan="3" GridPane.rowIndex="2">
+                    <Label text="INTEL SUMMARY" styleClass="field-label" />
+                    <TextArea fx:id="caseDescriptionArea" promptText="Enter tactical case summary..."
+                              styleClass="text-area" prefHeight="90" wrapText="true" />
+                </VBox>
+            </GridPane>
+            <HBox spacing="14" alignment="CENTER_LEFT">
+                <Button fx:id="createCaseBtn" text="🚀  INITIALIZE CASE" styleClass="action-button"
+                        onAction="#handleCreateSmartCase" />
+                <Label fx:id="caseResultLabel" text="" styleClass="result-label" />
+            </HBox>
+        </VBox>
+
+        <VBox spacing="16" prefWidth="260">
+            <VBox styleClass="form-card" spacing="12">
+                <Label text="🖥  SYSTEM STATUS" styleClass="section-title" />
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Circle radius="5" fill="#00ff88" />
+                    <Label text="Node: FBI-WASH-DC-01" styleClass="neon-label" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Circle radius="5" fill="#00f3ff" />
+                    <Label text="Encryption: AES-256-GCM" styleClass="neon-label" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Circle radius="5" fill="#ff2bd6" />
+                    <Label text="Ledger: IMMUTABLE" styleClass="neon-label" />
+                </HBox>
+                <ProgressBar progress="0.85" maxWidth="Infinity" styleClass="neon-progress" />
+            </VBox>
+            <VBox styleClass="form-card" spacing="10" VBox.vgrow="ALWAYS">
+                <Label text="⚡  OPERATIONAL NOTES" styleClass="section-title" />
+                <Label text="• Region filter updates location list automatically." styleClass="card-desc" />
+                <Label text="• Custom locations can be typed into the location field." styleClass="card-desc" />
+                <Label text="• All case events are logged to the immutable ledger." styleClass="card-desc" />
+            </VBox>
+        </VBox>
+    </HBox>
 
     <!-- UC-14: Secure Evidence Inventory Audit -->
-    <VBox styleClass="form-card" spacing="12">
-        <Label text="UC-14: Secure Evidence Inventory Audit" styleClass="section-title" />
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <VBox spacing="4"><Label text="Agent ID" styleClass="field-label" /><TextField fx:id="inventoryAgentIdField" promptText="AGT-XXX" styleClass="neon-input" prefWidth="200" /></VBox>
-            <Button fx:id="inventoryBtn" text="🔒 Run Inventory Audit" styleClass="action-button" onAction="#handleEvidenceInventory" />
+    <VBox styleClass="audit-panel" spacing="0">
+
+        <!-- Panel Header -->
+        <HBox styleClass="audit-header" alignment="CENTER_LEFT" spacing="16">
+            <padding><Insets top="18" right="24" bottom="18" left="24" /></padding>
+            <VBox spacing="4">
+                <Label text="🔬  UC-14  ·  SECURE EVIDENCE INVENTORY AUDIT" styleClass="audit-title" />
+                <Label text="Real-time chain-of-custody verification · SHA-256 integrity hashing · Clearance proxy enforcement"
+                       styleClass="audit-subtitle" />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <HBox spacing="10" alignment="CENTER">
+                <VBox spacing="4" alignment="CENTER_LEFT">
+                    <Label text="AGENT ID" styleClass="field-label" />
+                    <TextField fx:id="inventoryAgentIdField" promptText="AGT-XXXX-XXXX"
+                               styleClass="text-field" prefWidth="180" />
+                </VBox>
+                <VBox spacing="4" alignment="CENTER_LEFT">
+                    <Label text="FILTER BY CASE ID" styleClass="field-label" />
+                    <TextField fx:id="caseIdFilterField" promptText="CASE-XXXX-XXX (optional)"
+                               styleClass="text-field" prefWidth="200" />
+                </VBox>
+                <VBox spacing="4" alignment="CENTER">
+                    <Label text=" " styleClass="field-label" />
+                    <HBox spacing="8">
+                        <Button fx:id="inventoryBtn" text="🔐  RUN AUDIT" styleClass="action-button-glow"
+                                onAction="#handleEvidenceInventory" />
+                        <Button text="✕  CLEAR" styleClass="action-button"
+                                onAction="#handleClearAudit" />
+                    </HBox>
+                </VBox>
+            </HBox>
         </HBox>
-        <TableView fx:id="inventoryTable" prefHeight="220" styleClass="neon-table">
+
+        <!-- Evidence Table -->
+        <TableView fx:id="inventoryTable" styleClass="audit-table" prefHeight="280">
             <columns>
-                <TableColumn fx:id="invEvidenceIdColumn" text="Evidence ID" prefWidth="120" />
-                <TableColumn fx:id="invCaseIdColumn" text="Case ID" prefWidth="120" />
-                <TableColumn fx:id="invStatusColumn" text="Status" prefWidth="100" />
-                <TableColumn fx:id="invCustodianColumn" text="Custodian" prefWidth="120" />
-                <TableColumn fx:id="invHashColumn" text="Integrity Hash" prefWidth="200" />
+                <TableColumn fx:id="invIntegrityColumn" text="⚡  INTEGRITY" prefWidth="130" />
+                <TableColumn fx:id="invEvidenceIdColumn" text="🗂  EVIDENCE ID" prefWidth="130" />
+                <TableColumn fx:id="invCaseIdColumn" text="📁  CASE ID" prefWidth="130" />
+                <TableColumn fx:id="invStatusColumn" text="⚙  STATUS" prefWidth="110" />
+                <TableColumn fx:id="invCustodianColumn" text="👤  CUSTODIAN" prefWidth="180" />
+                <TableColumn fx:id="invHashColumn" text="🔒  SHA-256 HASH" prefWidth="320" />
             </columns>
+            <placeholder>
+                <Label fx:id="auditPlaceholderLabel"
+                       text="[ AWAITING AGENT SCAN — ENTER AUTHORIZED AGENT ID TO UNLOCK EVIDENCE INVENTORY ]"
+                       styleClass="audit-placeholder" />
+            </placeholder>
         </TableView>
+
+        <!-- Panel Footer -->
+        <HBox styleClass="audit-footer" spacing="16" alignment="CENTER_LEFT">
+            <padding><Insets top="12" right="24" bottom="12" left="24" /></padding>
+            <Circle radius="5" styleClass="status-dot" />
+            <Label text="IMMUTABILITY PROTOCOL: ACTIVE" styleClass="audit-footer-label" />
+            <Label text="|" styleClass="audit-footer-divider" />
+            <Label text="CLEARANCE THRESHOLD: LEVEL 3+" styleClass="audit-footer-label" />
+            <Label text="|" styleClass="audit-footer-divider" />
+            <Label text="E2: LEVEL 5 CLEARANCE REQUIRED FOR RESTRICTED ITEMS"
+                   styleClass="audit-footer-label" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="inventoryResultLabel" text="" styleClass="audit-result-label" />
+        </HBox>
     </VBox>
+
 </VBox>
 </ScrollPane>

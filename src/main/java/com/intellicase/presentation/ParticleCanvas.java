@@ -65,8 +65,15 @@ public class ParticleCanvas extends Canvas {
                     if (particleY[i] > h) {
                         particleY[i] = 0;
                     }
-                    Color cyan = Color.rgb(0, 243, 255, opacities[i]);
-                    gc.setFill(cyan);
+                    Color color;
+                    if (i % 3 == 0) {
+                        color = Color.rgb(201, 169, 77, opacities[i]); // gold
+                    } else if (i % 3 == 1) {
+                        color = Color.rgb(31, 111, 235, opacities[i]); // blue
+                    } else {
+                        color = Color.rgb(255, 255, 255, opacities[i] * 0.4); // white dim
+                    }
+                    gc.setFill(color);
                     if (i % 3 == 0) {
                         gc.fillRect(particleX[i], particleY[i], sizes[i], sizes[i]);
                     } else {

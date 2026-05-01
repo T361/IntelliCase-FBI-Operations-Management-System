@@ -1,0 +1,94 @@
+# ===============================
+# 🧠 Java / JVM
+# ===============================
+*.class
+hs_err_pid*
+replay_pid*
+
+# ===============================
+# 📦 Build & Package Files
+# ===============================
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Maven
+target/
+maven_install/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle (future-proofing)
+.gradle/
+build/
+
+# ===============================
+# 📝 Logs & Temp Files
+# ===============================
+*.log
+*.tmp
+*.swp
+*.swo
+
+# ===============================
+# 💻 IDE & Editor Files
+# ===============================
+# IntelliJ / JetBrains
+.idea/
+*.iml
+*.iws
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# ===============================
+# 🖥️ OS Files
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# 🗄️ Database & Local Data
+# ===============================
+*.db
+*.sqlite
+*.sqlite3
+intellicase.db
+
+# ===============================
+# 🔐 Environment & Secrets
+# ===============================
+.env
+.env.*
+*.key
+*.pem
+
+# ===============================
+# 📊 Reports / Generated Files
+# ===============================
+checkstyle_report.txt
+
+# ===============================
+# ⚙️ Optional (Uncomment if needed)
+# ===============================
+# Local scripts (if not needed in repo)
+ run_all.sh
+
+# Documentation (ONLY if you want to exclude)
+# *.txt

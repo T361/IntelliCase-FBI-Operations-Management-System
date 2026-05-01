@@ -20,4 +20,12 @@ public class EvidenceAuditServiceImpl implements EvidenceAuditService {
     public List<Evidence> getEvidenceInventory(String agentId) {
         return evidenceDao.findAll();
     }
+
+    @Override
+    public List<Evidence> getEvidenceInventory(String agentId, String caseIdFilter) {
+        if (caseIdFilter == null || caseIdFilter.isBlank()) {
+            return evidenceDao.findAll();
+        }
+        return evidenceDao.findByCaseId(caseIdFilter);
+    }
 }

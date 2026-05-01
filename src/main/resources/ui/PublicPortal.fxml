@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.intellicase.presentation.PublicPortalController"
+           fx:id="rootPane"
+           stylesheets="@CyberpunkUI.css"
+           style="-fx-background-color: linear-gradient(to bottom right, #0B1F3A, #060E1C);">
+
+    <!-- ── Main content ─────────────────────────────────────────────────── -->
+    <VBox spacing="0">
+        <!-- Top bar -->
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="14">
+            <padding><Insets top="12" right="24" bottom="12" left="24" /></padding>
+            <Label text="⬡" style="-fx-font-size: 20px; -fx-text-fill: #C9A94D;" />
+            <Label text="FBI · PUBLIC CASE PORTAL"
+                   style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #C9A94D;" />
+            <Label text="| Open Access Information System"
+                   style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.30);" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Label fx:id="liveLabel" text="● LIVE"
+                   style="-fx-font-size: 11px; -fx-text-fill: #00ff88;" />
+            <Label fx:id="userGreetingLabel" text=""
+                   style="-fx-font-size: 11px; -fx-text-fill: rgba(201,169,77,0.7); -fx-padding: 0 8;" />
+            <Button text="⏻ LOGOUT" styleClass="danger-button" onAction="#handleLogout"
+                    style="-fx-font-size: 11px; -fx-padding: 5 14;" />
+        </HBox>
+
+        <!-- Scroll area -->
+        <ScrollPane fx:id="mainScroll" fitToWidth="true" vbarPolicy="AS_NEEDED"
+                    hbarPolicy="NEVER"
+                    style="-fx-background-color: transparent; -fx-background: transparent;
+                           -fx-border-width: 0;" VBox.vgrow="ALWAYS">
+            <VBox spacing="32" style="-fx-padding: 36 56 36 56;">
+
+                <!-- Hero header -->
+                <VBox spacing="10">
+                    <HBox alignment="CENTER_LEFT" spacing="18">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="PUBLIC CASE INFORMATION"
+                                   style="-fx-font-size: 28px; -fx-font-weight: bold;
+                                          -fx-text-fill: white;" />
+                            <Label text="Transparency · Accountability · Justice"
+                                   style="-fx-font-size: 13px; -fx-text-fill: #C9A94D;
+                                          -fx-letter-spacing: 2;" />
+                        </VBox>
+                        <VBox spacing="4" alignment="CENTER_RIGHT">
+                            <Label fx:id="caseCountLabel" text="— cases"
+                                   style="-fx-font-size: 22px; -fx-font-weight: bold;
+                                          -fx-text-fill: #C9A94D;" />
+                            <Label text="publicly accessible"
+                                   style="-fx-font-size: 10px; -fx-text-fill: rgba(255,255,255,0.3);" />
+                        </VBox>
+                    </HBox>
+                    <Separator styleClass="neon-separator" />
+                </VBox>
+
+                <!-- Search and filter row -->
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <TextField fx:id="searchField" styleClass="neon-input" prefWidth="380"
+                               promptText="🔍  Search by keyword, case ID, or location…"
+                               style="-fx-font-size: 13px;" />
+                    <ComboBox fx:id="statusFilter" style="-fx-min-width: 170;" />
+                    <ComboBox fx:id="priorityFilter" style="-fx-min-width: 150;" />
+                    <Button text="SEARCH" styleClass="action-button"
+                            onAction="#handleSearch" style="-fx-padding: 9 22;" />
+                    <Button text="✕ CLEAR" styleClass="neon-button"
+                            onAction="#handleClear" style="-fx-padding: 9 16;" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button text="⟳ REFRESH" styleClass="neon-button"
+                            onAction="#handleManualRefresh" style="-fx-padding: 9 16;" />
+                </HBox>
+
+                <!-- Case cards grid -->
+                <FlowPane fx:id="caseCardsPane" hgap="20" vgap="20"
+                          prefWrapLength="1100" />
+
+                <Separator styleClass="neon-separator" />
+
+                <!-- Submit tip section -->
+                <VBox styleClass="form-card" spacing="16" style="-fx-padding: 28 32;">
+                    <Label text="📨  SUBMIT A TIP"
+                           style="-fx-font-size: 17px; -fx-font-weight: bold; -fx-text-fill: #C9A94D;" />
+                    <Label text="Have information about an active investigation? Submit anonymously. Every tip is reviewed by a certified field agent."
+                           style="-fx-font-size: 12px; -fx-text-fill: rgba(255,255,255,0.5);"
+                           wrapText="true" />
+                    <Separator styleClass="neon-separator" />
+                    <HBox spacing="16">
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="RELATED CASE ID (optional)" styleClass="field-label" />
+                            <TextField fx:id="tipCaseIdField" styleClass="neon-input"
+                                       promptText="CASE-XXXX-XXX" />
+                        </VBox>
+                        <VBox spacing="6" HBox.hgrow="ALWAYS">
+                            <Label text="CONTACT EMAIL (optional)" styleClass="field-label" />
+                            <TextField fx:id="tipEmailField" styleClass="neon-input"
+                                       promptText="your@email.com" />
+                        </VBox>
+                    </HBox>
+                    <VBox spacing="6">
+                        <Label text="TIP DETAILS *" styleClass="field-label" />
+                        <TextArea fx:id="tipDetailsArea" styleClass="neon-input"
+                                  promptText="Describe what you witnessed or know. Be as specific as possible."
+                                  wrapText="true" prefHeight="100" />
+                    </VBox>
+                    <HBox spacing="14" alignment="CENTER_LEFT">
+                        <Button text="📨  SUBMIT TIP" styleClass="action-button"
+                                onAction="#handleSubmitTip" style="-fx-padding: 10 24;" />
+                        <Label fx:id="tipStatusLabel" text="" wrapText="true"
+                               style="-fx-font-size: 12px;" />
+                    </HBox>
+                </VBox>
+
+                <!-- Footer -->
+                <Label text="FEDERAL BUREAU OF INVESTIGATION  ·  Public Information Portal  ·  Unauthorized access is a federal crime."
+                       style="-fx-font-size: 10px; -fx-text-fill: rgba(255,255,255,0.15);
+                              -fx-alignment: CENTER;" />
+            </VBox>
+        </ScrollPane>
+    </VBox>
+
+    <!-- ── Case Detail Overlay (hidden by default) ───────────────────────── -->
+    <StackPane fx:id="detailOverlay" visible="false" managed="false"
+               style="-fx-background-color: rgba(0,0,0,0.72);">
+        <VBox fx:id="detailPanel" alignment="TOP_LEFT" spacing="0" maxWidth="620"
+              style="-fx-background-color: linear-gradient(to bottom, #0D2444, #091628);
+                     -fx-border-color: rgba(201,169,77,0.5); -fx-border-width: 1.5;
+                     -fx-border-radius: 14; -fx-background-radius: 14;
+                     -fx-effect: dropshadow(gaussian, rgba(201,169,77,0.35), 40, 0.3, 0, 0);">
+
+            <!-- Detail header -->
+            <HBox style="-fx-background-color: rgba(201,169,77,0.08);
+                         -fx-border-color: rgba(201,169,77,0.2); -fx-border-width: 0 0 1 0;
+                         -fx-border-radius: 14 14 0 0; -fx-background-radius: 14 14 0 0;
+                         -fx-padding: 20 24 16 24;" alignment="CENTER_LEFT" spacing="14">
+                <Label text="📁" style="-fx-font-size: 26px;" />
+                <VBox spacing="2" HBox.hgrow="ALWAYS">
+                    <Label fx:id="detailCaseId" text="CASE-XXXX-XXX"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #C9A94D;" />
+                    <Label fx:id="detailStatus" text="STATUS"
+                           style="-fx-font-size: 12px; -fx-text-fill: #1F6FEB;" />
+                </VBox>
+                <Button text="✕" styleClass="danger-button" onAction="#closeDetail"
+                        style="-fx-font-size: 14px; -fx-padding: 6 14;" />
+            </HBox>
+
+            <!-- Detail body -->
+            <VBox spacing="20" style="-fx-padding: 28 28 32 28;">
+
+                <HBox spacing="20">
+                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="PRIORITY LEVEL" styleClass="field-label" />
+                        <Label fx:id="detailPriority" text="—"
+                               style="-fx-font-size: 15px; -fx-font-weight: bold;
+                                      -fx-text-fill: white;" />
+                    </VBox>
+                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="LOCATION" styleClass="field-label" />
+                        <Label fx:id="detailLocation" text="—"
+                               style="-fx-font-size: 15px; -fx-text-fill: rgba(255,255,255,0.8);" />
+                    </VBox>
+                </HBox>
+
+                <VBox spacing="6">
+                    <Label text="CASE SUMMARY" styleClass="field-label" />
+                    <Label fx:id="detailDescription" text="—" wrapText="true"
+                           style="-fx-font-size: 14px; -fx-text-fill: rgba(255,255,255,0.75);
+                                  -fx-line-spacing: 4;" />
+                </VBox>
+
+                <VBox spacing="8"
+                      style="-fx-background-color: rgba(31,111,235,0.07);
+                             -fx-border-color: rgba(31,111,235,0.25); -fx-border-width: 1;
+                             -fx-border-radius: 8; -fx-background-radius: 8;
+                             -fx-padding: 14 16;">
+                    <Label text="🔒  CLASSIFIED INFORMATION NOTICE"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #1F6FEB;" />
+                    <Label text="Internal investigation files, agent identities, evidence records, and operational details are classified and not available through public access."
+                           wrapText="true"
+                           style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.45);" />
+                </VBox>
+
+                <HBox spacing="12">
+                    <Button text="📨  Submit a Tip on This Case" styleClass="action-button"
+                            onAction="#submitTipForSelected"
+                            style="-fx-font-size: 12px; -fx-padding: 9 18;" />
+                    <Button text="CLOSE" styleClass="neon-button"
+                            onAction="#closeDetail"
+                            style="-fx-font-size: 12px; -fx-padding: 9 18;" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </StackPane>
+</StackPane>

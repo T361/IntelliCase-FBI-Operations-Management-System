@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.intellicase.presentation.LandingPageController"
+           style="-fx-background-color: transparent;">
+
+    <!-- Hero Section -->
+    <VBox alignment="CENTER" spacing="0">
+
+        <!-- Top nav bar -->
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="16">
+            <padding><Insets top="12" right="28" bottom="12" left="28" /></padding>
+            <Label text="⬡" style="-fx-font-size: 22px; -fx-text-fill: #C9A94D;" />
+            <Label text="INTELLICASE" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #C9A94D;" />
+            <Label text="FBI Operations Management System" style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.45);" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="navLoginBtn" text="LOGIN" styleClass="action-button" onAction="#goLogin" />
+            <Button fx:id="navSignupBtn" text="SIGN UP" styleClass="neon-button" onAction="#goSignup" />
+        </HBox>
+
+        <!-- Hero content -->
+        <VBox alignment="CENTER" spacing="22" VBox.vgrow="ALWAYS" style="-fx-padding: 60 80 30 80;">
+
+            <Label text="FEDERAL BUREAU OF INVESTIGATION"
+                   style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #C9A94D; -fx-letter-spacing: 4;" />
+
+            <Label text="IntelliCase Operations" fx:id="heroTitle"
+                   style="-fx-font-size: 56px; -fx-font-weight: bold; -fx-text-fill: white;
+                          -fx-effect: dropshadow(gaussian, rgba(201,169,77,0.5), 30, 0.4, 0, 0);" />
+
+            <Label text="Management System"
+                   style="-fx-font-size: 38px; -fx-font-weight: bold;
+                          -fx-text-fill: linear-gradient(to right, #C9A94D, #1F6FEB);" />
+
+            <Label text="A classified intelligence platform for federal case tracking, evidence custody,\nand multi-clearance operations management."
+                   wrapText="true" textAlignment="CENTER"
+                   style="-fx-font-size: 14px; -fx-text-fill: rgba(255,255,255,0.6); -fx-line-spacing: 4;" />
+
+            <HBox spacing="16" alignment="CENTER">
+                <Button text="🔐  AGENT LOGIN" styleClass="action-button"
+                        style="-fx-font-size: 15px; -fx-padding: 12 32;"
+                        onAction="#goLogin" />
+                <Button text="📋  REQUEST ACCESS" styleClass="neon-button"
+                        style="-fx-font-size: 15px; -fx-padding: 12 32;"
+                        onAction="#goSignup" />
+            </HBox>
+
+            <Label fx:id="roleHintLabel" text="Demo credentials — director / Director@2026"
+                   style="-fx-font-size: 11px; -fx-text-fill: rgba(201,169,77,0.5); -fx-font-style: italic;" />
+        </VBox>
+
+        <!-- Feature Cards -->
+        <HBox spacing="24" alignment="CENTER" style="-fx-padding: 0 40 0 40;">
+            <VBox fx:id="card1" styleClass="nav-card" spacing="10" alignment="CENTER"
+                  prefWidth="230" prefHeight="150">
+                <Label text="🛡" style="-fx-font-size: 30px;" />
+                <Label text="SECURITY OPS" styleClass="card-title" />
+                <Label text="Shadow profiles, lockdown management and clearance verification."
+                       styleClass="card-desc" wrapText="true" textAlignment="CENTER" />
+            </VBox>
+            <VBox fx:id="card2" styleClass="nav-card" spacing="10" alignment="CENTER"
+                  prefWidth="230" prefHeight="150">
+                <Label text="🔬" style="-fx-font-size: 30px;" />
+                <Label text="EVIDENCE VAULT" styleClass="card-title" />
+                <Label text="Digital handshake, load scoring and immutable audit trail."
+                       styleClass="card-desc" wrapText="true" textAlignment="CENTER" />
+            </VBox>
+            <VBox fx:id="card3" styleClass="nav-card" spacing="10" alignment="CENTER"
+                  prefWidth="230" prefHeight="150">
+                <Label text="📁" style="-fx-font-size: 30px;" />
+                <Label text="CASE DASHBOARD" styleClass="card-title" />
+                <Label text="Smart case management with priority routing and integrity checks."
+                       styleClass="card-desc" wrapText="true" textAlignment="CENTER" />
+            </VBox>
+            <VBox fx:id="card4" styleClass="nav-card" spacing="10" alignment="CENTER"
+                  prefWidth="230" prefHeight="150">
+                <Label text="📊" style="-fx-font-size: 30px;" />
+                <Label text="ANALYTICS" styleClass="card-title" />
+                <Label text="Director-level dashboards with live counters and case telemetry."
+                       styleClass="card-desc" wrapText="true" textAlignment="CENTER" />
+            </VBox>
+        </HBox>
+
+        <!-- Footer -->
+        <HBox alignment="CENTER" style="-fx-padding: 18 0 12 0;">
+            <Label text="CLASSIFIED — FOR AUTHORIZED PERSONNEL ONLY  |  IntelliCase v2.0.1  |  © 2026 FBI Operations"
+                   style="-fx-font-size: 10px; -fx-text-fill: rgba(255,255,255,0.2);" />
+        </HBox>
+    </VBox>
+</StackPane>

@@ -31,6 +31,12 @@ public final class ViewRouter {
         this.contentPane = contentPane;
     }
 
+    private Runnable onNavigation;
+
+    public void setOnNavigation(Runnable onNavigation) {
+        this.onNavigation = onNavigation;
+    }
+
     public void navigateTo(String fxmlPath) {
         if (fxmlPath.equals(currentView)) {
             return;
@@ -56,6 +62,9 @@ public final class ViewRouter {
                 fadeIn(view);
             }
             currentView = fxmlPath;
+            if (onNavigation != null) {
+                onNavigation.run();
+            }
         } catch (IOException ex) {
             System.err.println("[ViewRouter] Failed to load view: " + fxmlPath + " — " + ex.getMessage());
         }

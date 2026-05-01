@@ -105,4 +105,17 @@ public class AgentDao {
         }
         return agents;
     }
+
+    public int count() {
+        String sql = "SELECT COUNT(*) FROM Agents";
+        try (PreparedStatement statement = databaseConnection.getConnection().prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("[DAO] Agent count failed: " + ex.getMessage());
+        }
+        return 0;
+    }
 }

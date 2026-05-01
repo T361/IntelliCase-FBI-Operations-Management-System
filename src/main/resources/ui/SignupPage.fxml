@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.intellicase.presentation.SignupController"
+           style="-fx-background-color: transparent;">
+
+    <VBox alignment="CENTER" spacing="0">
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="12">
+            <padding><Insets top="10" right="24" bottom="10" left="24" /></padding>
+            <Button text="← BACK" styleClass="neon-button" onAction="#goBack"
+                    style="-fx-font-size: 11px; -fx-padding: 5 14;" />
+            <Label text="REQUEST SYSTEM ACCESS" styleClass="neon-chip" />
+        </HBox>
+
+        <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
+            <VBox styleClass="form-card" spacing="14" maxWidth="480"
+                  style="-fx-padding: 32 48;">
+                <Label text="📋" style="-fx-font-size: 36px;" />
+                <Label text="REQUEST ACCESS" styleClass="page-title" style="-fx-font-size: 22px;" />
+                <Label text="Create your IntelliCase agent account." styleClass="page-subtitle" />
+                <Separator styleClass="neon-separator" />
+
+                <HBox spacing="12">
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="FULL NAME" styleClass="field-label" />
+                        <TextField fx:id="fullNameField" styleClass="neon-input"
+                                   promptText="Agent Full Name" />
+                    </VBox>
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="USERNAME" styleClass="field-label" />
+                        <TextField fx:id="usernameField" styleClass="neon-input"
+                                   promptText="unique_handle" />
+                    </VBox>
+                </HBox>
+
+                <VBox spacing="5">
+                    <Label text="EMAIL ADDRESS" styleClass="field-label" />
+                    <TextField fx:id="emailField" styleClass="neon-input"
+                               promptText="agent@fbi.gov" />
+                </VBox>
+
+                <HBox spacing="12">
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="PASSWORD" styleClass="field-label" />
+                        <HBox spacing="6" alignment="CENTER">
+                            <StackPane HBox.hgrow="ALWAYS">
+                                <PasswordField fx:id="passwordField" styleClass="neon-input"
+                                               promptText="Min 8 chars" />
+                                <TextField fx:id="passwordVisible" styleClass="neon-input"
+                                           promptText="Min 8 chars" visible="false" managed="false" />
+                            </StackPane>
+                            <Button text="👁" styleClass="neon-button" onAction="#togglePassword"
+                                    style="-fx-font-size: 12px; -fx-padding: 5 10;" />
+                        </HBox>
+                    </VBox>
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="CONFIRM" styleClass="field-label" />
+                        <PasswordField fx:id="confirmField" styleClass="neon-input"
+                                       promptText="Repeat password" />
+                    </VBox>
+                </HBox>
+
+                <VBox spacing="5">
+                    <Label text="ROLE REQUEST" styleClass="field-label" />
+                    <ComboBox fx:id="roleCombo" maxWidth="Infinity" />
+                </VBox>
+
+                <Label fx:id="statusLabel" text="" wrapText="true"
+                       style="-fx-font-size: 12px;" />
+
+                <Button text="SUBMIT REQUEST →" styleClass="action-button"
+                        maxWidth="Infinity" onAction="#handleSignup"
+                        style="-fx-font-size: 14px; -fx-padding: 12 0;" />
+
+                <HBox alignment="CENTER" spacing="6">
+                    <Label text="Already have access?" styleClass="neon-label" />
+                    <Button text="Login" styleClass="neon-button" onAction="#goLogin"
+                            style="-fx-font-size: 11px; -fx-padding: 4 12;" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </VBox>
+</StackPane>

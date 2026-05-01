@@ -97,10 +97,9 @@ public class IntelliCaseBackendTest {
             secCtrl.createShadowProfile(null, null, "", null, null);
             secCtrl.activateAuditLockdown(null);
             secCtrl.promoteSecurityClearance("", null);
-
-            evCtrl.initiateDigitalHandshake(null, null);
+            evCtrl.initiateDigitalHandshake(null, null, null, null);
             evCtrl.assignAgentSmartLoad(null, -500, null);
-            evCtrl.viewAuditTrail(null);
+            evCtrl.viewEvidenceAuditTrail(null, null);
         }, "FATAL ERROR: Controllers failed to handle edge cases gracefully, JVM crash detected.");
         
         // Ensure invalid override code rejects lockdown override without crashing

@@ -56,12 +56,14 @@ public class SchemaInitializer {
                 ")"
             );
 
+            statement.executeUpdate("DROP TABLE IF EXISTS ShadowProfiles");
             statement.executeUpdate(
                 "CREATE TABLE IF NOT EXISTS ShadowProfiles (" +
                     "profileID TEXT PRIMARY KEY, " +
                     "alias TEXT, " +
                     "encryptedData TEXT, " +
-                    "caseID TEXT" +
+                    "caseID TEXT, " +
+                    "creatorAgentId TEXT" +
                 ")"
             );
 

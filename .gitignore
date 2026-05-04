@@ -18,6 +18,7 @@ replay_pid*
 
 # Maven
 target/
+maven/
 maven_install/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -55,7 +56,8 @@ build/
 .settings/
 
 # VS Code
-.vscode/
+.vscode/*
+!.vscode/settings.json
 
 # ===============================
 # 🖥️ OS Files

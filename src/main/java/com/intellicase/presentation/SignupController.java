@@ -2,6 +2,9 @@ package com.intellicase.presentation;
 
 import com.intellicase.dao.AppUserDao;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -37,20 +40,24 @@ public class SignupController {
     @FXML
     private Label statusLabel;
 
+    /** Maps human-readable label → internal role string. */
+    private static final Map<String, String> ROLE_MAP = new LinkedHashMap<>();
+    static {
+        ROLE_MAP.put("Public User",          "PUBLIC_USER");
+        ROLE_MAP.put("Field Agent",          "FIELD_AGENT");
+        ROLE_MAP.put("Case Supervisor",      "CASE_SUPERVISOR");
+        ROLE_MAP.put("Intelligence Analyst", "INTELLIGENCE_ANALYST");
+        ROLE_MAP.put("Forensic Specialist",  "FORENSIC_SPECIALIST");
+        ROLE_MAP.put("FBI Director",         "FBI_DIRECTOR");
+    }
+
     private final AppUserDao userDao = new AppUserDao();
     private boolean showingPassword = false;
 
     @FXML
     private void initialize() {
-        roleCombo.getItems().addAll(
-            "PUBLIC_USER",
-            "FIELD_AGENT",
-            "CASE_SUPERVISOR",
-            "FBI_DIRECTOR",
-            "INTELLIGENCE_ANALYST",
-            "FORENSIC_SPECIALIST"
-        );
-        roleCombo.setValue("PUBLIC_USER");
+        roleCombo.getItems().addAll(ROLE_MAP.keySet());
+        roleCombo.setValue("Public User");
     }
 
     @FXML
@@ -82,7 +89,8 @@ public class SignupController {
         String email = emailField.getText().trim();
         String password = getPassword();
         String confirm = confirmField.getText();
-        String role = roleCombo.getValue();
+        String roleLabel = roleCombo.getValue();
+        String role = ROLE_MAP.getOrDefault(roleLabel, "PUBLIC_USER");
 
         if (fullName.isEmpty() || username.isEmpty()
                 || email.isEmpty() || password.isEmpty()) {

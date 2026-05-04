@@ -1,0 +1,16 @@
+{
+    "//": "JavaFX uses -fx- prefixed CSS properties which are not standard web CSS.",
+    "//1": "VS Code's built-in CSS linter flags every -fx- property as a compatibility warning.",
+    "//2": "These are all false positives — disabling CSS/SCSS validation removes the noise.",
+    "css.validate": false,
+    "scss.validate": false,
+    "less.validate": false,
+    "css.lint.unknownProperties": "ignore",
+
+    "//3": "Keep Java/Maven tooling active.",
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.compile.nullAnalysis.mode": "disabled",
+
+    "//4": "Checkstyle is enforced by Maven — suppress duplicate IDE squiggles.",
+    "java.checkstyle.autocheck": false
+}

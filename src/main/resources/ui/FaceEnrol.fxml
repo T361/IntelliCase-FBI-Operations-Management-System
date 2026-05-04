@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.intellicase.presentation.FaceEnrolController"
+      alignment="CENTER" spacing="22"
+      style="-fx-padding: 30 60; -fx-background-color: transparent;">
+
+    <!-- Title -->
+    <HBox alignment="CENTER" spacing="14">
+        <Label text="🪪" style="-fx-font-size: 36px;" />
+        <VBox spacing="4">
+            <Label text="FACE ID ENROLMENT" styleClass="page-title"
+                   style="-fx-font-size: 20px;" />
+            <Label text="Register your face to enable biometric login."
+                   styleClass="page-subtitle" />
+        </VBox>
+    </HBox>
+
+    <Separator styleClass="neon-separator" maxWidth="620" />
+
+    <!-- Camera + controls card -->
+    <VBox styleClass="form-card" spacing="16" alignment="CENTER" maxWidth="640">
+        <padding><Insets top="28" right="36" bottom="28" left="36" /></padding>
+
+        <!-- Status / enrolment state -->
+        <Label fx:id="enrolledLabel" text="Checking enrolment status…"
+               wrapText="true" textAlignment="CENTER"
+               style="-fx-font-size: 12px; -fx-text-fill: rgba(212,175,55,0.6);" />
+
+        <!-- Camera preview -->
+        <StackPane>
+            <ImageView fx:id="cameraView"
+                       fitWidth="520" fitHeight="300"
+                       preserveRatio="true"
+                       style="-fx-border-color: rgba(212,175,55,0.4);
+                              -fx-border-width: 2;
+                              -fx-border-radius: 8;" />
+
+            <!-- Loading spinner -->
+            <VBox alignment="CENTER" spacing="8"
+                  style="-fx-background-color: rgba(0,0,0,0.55);
+                         -fx-background-radius: 8; -fx-padding: 32;">
+                <ProgressIndicator fx:id="spinner"
+                                   style="-fx-accent: #D4AF37;"
+                                   prefWidth="44" prefHeight="44" />
+                <Label text="Initialising camera…"
+                       style="-fx-text-fill: rgba(212,175,55,0.7); -fx-font-size: 11px;" />
+            </VBox>
+
+            <!-- Corner HUD brackets -->
+            <Label text="⌜" style="-fx-font-size: 28px; -fx-text-fill: #D4AF37; -fx-opacity: 0.6;"
+                   StackPane.alignment="TOP_LEFT" translateX="4" translateY="4" />
+            <Label text="⌝" style="-fx-font-size: 28px; -fx-text-fill: #D4AF37; -fx-opacity: 0.6;"
+                   StackPane.alignment="TOP_RIGHT" translateX="-4" translateY="4" />
+            <Label text="⌞" style="-fx-font-size: 28px; -fx-text-fill: #D4AF37; -fx-opacity: 0.6;"
+                   StackPane.alignment="BOTTOM_LEFT" translateX="4" translateY="-4" />
+            <Label text="⌟" style="-fx-font-size: 28px; -fx-text-fill: #D4AF37; -fx-opacity: 0.6;"
+                   StackPane.alignment="BOTTOM_RIGHT" translateX="-4" translateY="-4" />
+        </StackPane>
+
+        <!-- Live status -->
+        <Label fx:id="statusLabel" text="Starting camera…"
+               style="-fx-text-fill: #00ff88; -fx-font-size: 12px;" />
+
+        <Separator styleClass="neon-separator" />
+
+        <!-- Action buttons -->
+        <HBox spacing="12" alignment="CENTER">
+            <Button fx:id="captureButton" text="📸  CAPTURE FACE TEMPLATE"
+                    styleClass="action-button"
+                    onAction="#handleCapture"
+                    style="-fx-font-size: 13px; -fx-padding: 10 28;" />
+            <Button text="✕  CLOSE"
+                    styleClass="neon-button"
+                    onAction="#handleClose"
+                    style="-fx-font-size: 13px; -fx-padding: 10 20;" />
+        </HBox>
+
+        <Label text="Your face data is stored locally in the encrypted database and never transmitted."
+               style="-fx-font-size: 10px; -fx-text-fill: rgba(201,169,77,0.4);
+                      -fx-font-style: italic;"
+               wrapText="true" textAlignment="CENTER" />
+    </VBox>
+</VBox>

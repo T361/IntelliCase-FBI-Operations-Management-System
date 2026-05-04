@@ -5,18 +5,18 @@
 
 /* === ROOT === */
 .root {
-    -fx-font-family: "Inter", "Consolas", monospace;
-    -fx-background-color: #000000;
-    -fx-base: #000000;
-    -fx-background: #000000;
-    -fx-control-inner-background: #0B1120;
-    -fx-text-fill: #F3F4F6;
+    -fx-font-family: "Inter", "Segoe UI", sans-serif;
+    -fx-background-color: #040C1A;
+    -fx-base: #040C1A;
+    -fx-background: #040C1A;
+    -fx-control-inner-background: #07132A;
+    -fx-text-fill: #E8EDF5;
 }
 
 /* === SIDEBAR === */
 .sidebar {
-    -fx-background-color: linear-gradient(to bottom, rgba(20, 28, 43, 0.95), rgba(0, 20, 30, 0.9));
-    -fx-border-color: linear-gradient(to bottom, #D4AF37, #8A7019);
+    -fx-background-color: linear-gradient(to bottom, #07152E, #030D1E);
+    -fx-border-color: linear-gradient(to bottom, #C9A94D, #7A6010);
     -fx-border-width: 0 2 0 0;
 }
 
@@ -34,8 +34,8 @@
 
 /* === TOPBAR === */
 .topbar {
-    -fx-background-color: rgba(17, 24, 39, 0.9);
-    -fx-border-color: linear-gradient(to right, #D4AF37, #8A7019);
+    -fx-background-color: #071428;
+    -fx-border-color: #C9A94D;
     -fx-border-width: 0 0 1 0;
 }
 
@@ -44,11 +44,7 @@
     -fx-effect: dropshadow(gaussian, #00ff88, 10, 0.5, 0, 0);
 }
 
-.status-dot-pulse {
-    /* Handled via AnimationUtils or CSS keyframes if supported, 
-       but for JavaFX we usually use Timeline in code. 
-       We'll define a class to target it. */
-}
+/* .status-dot-pulse animation is driven by Timeline in AnimationUtils — no CSS ruleset needed. */
 
 /* === CONTENT AREA === */
 .content-area {

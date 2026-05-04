@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.intellicase.presentation.QrDisplayController"
+      alignment="CENTER" spacing="22"
+      style="-fx-padding: 30 60; -fx-background-color: transparent;">
+
+    <!-- Title -->
+    <HBox alignment="CENTER" spacing="14">
+        <Label text="📷" style="-fx-font-size: 36px;" />
+        <VBox spacing="4">
+            <Label text="MY QR LOGIN CODE" styleClass="page-title"
+                   style="-fx-font-size: 20px;" />
+            <Label text="Show this code to the camera on the login screen."
+                   styleClass="page-subtitle" />
+        </VBox>
+    </HBox>
+
+    <Separator styleClass="neon-separator" maxWidth="580" />
+
+    <!-- QR card -->
+    <VBox styleClass="form-card" spacing="18" alignment="CENTER" maxWidth="520">
+        <padding><Insets top="32" right="44" bottom="32" left="44" /></padding>
+
+        <!-- User identity -->
+        <Label fx:id="userLabel" text="—"
+               style="-fx-text-fill: #D4AF37; -fx-font-size: 14px;
+                      -fx-font-weight: bold;" />
+
+        <!-- QR image -->
+        <StackPane alignment="CENTER">
+            <ImageView fx:id="qrImageView"
+                       fitWidth="300" fitHeight="300"
+                       preserveRatio="true"
+                       style="-fx-background-color: white;
+                              -fx-border-color: rgba(212,175,55,0.5);
+                              -fx-border-width: 3;
+                              -fx-border-radius: 8;
+                              -fx-background-radius: 8;" />
+        </StackPane>
+
+        <!-- Expiry info -->
+        <Label fx:id="expiryLabel" text="⏱ Valid for 5 minutes from generation."
+               style="-fx-text-fill: rgba(212,175,55,0.8); -fx-font-size: 12px;" />
+
+        <!-- Status -->
+        <Label fx:id="statusLabel" text=""
+               style="-fx-text-fill: #00ff88; -fx-font-size: 12px;" />
+
+        <Separator styleClass="neon-separator" />
+
+        <!-- Instructions -->
+        <Label fx:id="instructionLabel"
+               text="On the login screen select QR SCAN, then hold this code up to the camera."
+               styleClass="page-subtitle"
+               wrapText="true" textAlignment="CENTER" />
+
+        <Separator styleClass="neon-separator" />
+
+        <!-- Buttons -->
+        <HBox spacing="12" alignment="CENTER">
+            <Button text="🔄  REGENERATE"
+                    styleClass="action-button"
+                    onAction="#handleRefresh"
+                    style="-fx-font-size: 13px; -fx-padding: 10 24;" />
+            <Button text="✕  CLOSE"
+                    styleClass="neon-button"
+                    onAction="#handleClose"
+                    style="-fx-font-size: 13px; -fx-padding: 10 20;" />
+        </HBox>
+
+        <Label text="Each code is single-use and expires after 5 minutes."
+               style="-fx-font-size: 10px; -fx-text-fill: rgba(201,169,77,0.4);
+                      -fx-font-style: italic;" />
+    </VBox>
+</VBox>

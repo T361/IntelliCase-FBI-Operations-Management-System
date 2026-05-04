@@ -23,6 +23,14 @@
                 <Button fx:id="navEvidence" text="🔬  Evidence Vault" styleClass="nav-button" onAction="#goEvidence" maxWidth="Infinity" />
                 <Button fx:id="navCases" text="📁  Case Dashboard" styleClass="nav-button" onAction="#goCases" maxWidth="Infinity" />
 
+                <Separator styleClass="neon-separator" style="-fx-padding: 4 0;" />
+                <Label text="BIOMETRICS" style="-fx-text-fill: rgba(212,175,55,0.4);
+                                                -fx-font-size: 9px; -fx-font-weight: bold;" />
+                <Button fx:id="navFaceEnrol" text="🪪  Enrol Face ID" styleClass="nav-button"
+                        onAction="#goFaceEnrol" maxWidth="Infinity" />
+                <Button fx:id="navQrDisplay" text="📷  My QR Code" styleClass="nav-button"
+                        onAction="#goQrDisplay" maxWidth="Infinity" />
+
                 <Region VBox.vgrow="ALWAYS" />
 
                 <Separator styleClass="neon-separator" />

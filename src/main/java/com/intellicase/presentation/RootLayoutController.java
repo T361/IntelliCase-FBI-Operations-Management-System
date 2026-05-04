@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import com.intellicase.application.SystemState;
+import com.intellicase.application.WebcamService;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -59,6 +60,12 @@ public class RootLayoutController {
     @FXML
     private Button navLockdown;
 
+    @FXML
+    private Button navFaceEnrol;
+
+    @FXML
+    private Button navQrDisplay;
+
     private com.intellicase.presentation.effects.HyperParticleEngine particleEngine;
 
     @FXML
@@ -104,6 +111,10 @@ public class RootLayoutController {
             setActiveButton(navCases);
         } else if (view.contains("LockdownControl")) {
             setActiveButton(navLockdown);
+        } else if (view.contains("FaceEnrol")) {
+            setActiveButton(navFaceEnrol);
+        } else if (view.contains("QrDisplay")) {
+            setActiveButton(navQrDisplay);
         }
     }
 
@@ -223,12 +234,30 @@ public class RootLayoutController {
         refreshLockdownStatus();
     }
 
+    @FXML
+    private void goFaceEnrol() {
+        WebcamService.getInstance().stop();
+        ViewRouter.getInstance().navigateTo("/ui/FaceEnrol.fxml");
+        setActiveButton(navFaceEnrol);
+        com.intellicase.presentation.effects.HUDGuidanceOverlay.clear();
+    }
+
+    @FXML
+    private void goQrDisplay() {
+        WebcamService.getInstance().stop();
+        ViewRouter.getInstance().navigateTo("/ui/QrDisplay.fxml");
+        setActiveButton(navQrDisplay);
+        com.intellicase.presentation.effects.HUDGuidanceOverlay.clear();
+    }
+
     private void setActiveButton(Button active) {
         navMainMenu.getStyleClass().remove("nav-button-active");
         navSecurity.getStyleClass().remove("nav-button-active");
         navLockdown.getStyleClass().remove("nav-button-active");
         navEvidence.getStyleClass().remove("nav-button-active");
         navCases.getStyleClass().remove("nav-button-active");
+        navFaceEnrol.getStyleClass().remove("nav-button-active");
+        navQrDisplay.getStyleClass().remove("nav-button-active");
         active.getStyleClass().add("nav-button-active");
     }
 }

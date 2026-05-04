@@ -3,7 +3,11 @@ package com.intellicase.presentation;
 import com.intellicase.dao.AppUserDao;
 import com.intellicase.domain.AppUser;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -26,8 +30,27 @@ public class LoginController {
     @FXML
     private Label errorLabel;
 
+    @FXML
+    private ComboBox<String> roleComboBox;
+
+    /** Maps human-readable display label → internal role string. */
+    private static final Map<String, String> ROLE_MAP = new LinkedHashMap<>();
+    static {
+        ROLE_MAP.put("FBI Director",            "FBI_DIRECTOR");
+        ROLE_MAP.put("Case Supervisor",         "CASE_SUPERVISOR");
+        ROLE_MAP.put("Field Agent",             "FIELD_AGENT");
+        ROLE_MAP.put("Intelligence Analyst",    "INTELLIGENCE_ANALYST");
+        ROLE_MAP.put("Forensic Specialist",     "FORENSIC_SPECIALIST");
+        ROLE_MAP.put("Public User",             "PUBLIC_USER");
+    }
+
     private final AppUserDao userDao = new AppUserDao();
     private boolean showingPassword = false;
+
+    @FXML
+    private void initialize() {
+        roleComboBox.getItems().addAll(ROLE_MAP.keySet());
+    }
 
     @FXML
     private void togglePassword() {
@@ -55,15 +78,26 @@ public class LoginController {
     private void handleLogin() {
         String username = usernameField.getText().trim();
         String password = getPassword();
+        String selectedLabel = roleComboBox.getValue();
 
-        if (username.isEmpty() || password.isEmpty()) {
-            showError("Please enter both username and password.");
+        if (username.isEmpty() || password.isEmpty() || selectedLabel == null) {
+            showError("Please enter credentials and select your role.");
             return;
         }
+
+        String selectedRole = ROLE_MAP.getOrDefault(selectedLabel, "");
 
         AppUser user = userDao.authenticate(username, password);
         if (user == null) {
             showError("Invalid credentials. Access denied.");
+            AudioFeedbackManager.playError();
+            return;
+        }
+
+        // Enforce role-based access: user must hold the selected clearance
+        if (!selectedRole.equals(user.getRole())) {
+            showError("Access denied: Your account does not hold the '"
+                + selectedLabel + "' clearance level.");
             AudioFeedbackManager.playError();
             return;
         }
@@ -76,6 +110,20 @@ public class LoginController {
         } else {
             AppStageManager.showMainApp();
         }
+    }
+
+    @FXML
+    private void handleFaceLogin() {
+        AudioFeedbackManager.playClick();
+        BiometricLoginController.setPendingMode(BiometricLoginController.Mode.FACE);
+        PreAuthRouter.getInstance().navigateTo("/ui/BiometricLogin.fxml");
+    }
+
+    @FXML
+    private void handleQrLogin() {
+        AudioFeedbackManager.playClick();
+        BiometricLoginController.setPendingMode(BiometricLoginController.Mode.QR);
+        PreAuthRouter.getInstance().navigateTo("/ui/BiometricLogin.fxml");
     }
 
     @FXML

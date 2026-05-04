@@ -7,7 +7,6 @@ import com.intellicase.dao.AuditLogDao;
 import com.intellicase.dao.CaseFileDao;
 import com.intellicase.dao.ShadowProfileDao;
 import com.intellicase.domain.Agent;
-import com.intellicase.domain.AuditLogEntry;
 import com.intellicase.domain.ShadowProfile;
 
 /**
@@ -27,6 +26,9 @@ public class SecurityController {
     private final AgentDao agentDao;
     private final CaseFileDao caseFileDao;
     private EncryptionStrategy encryptionStrategy;
+
+    /** GoF Command Invoker — decouples audit logging from DAO calls. */
+    private final SecurityCommandInvoker cmdInvoker = SecurityCommandInvoker.getInstance();
 
     public SecurityController() {
         this.shadowProfileDao = new ShadowProfileDao();
@@ -74,7 +76,7 @@ public class SecurityController {
         // Save with creator agent ID to restrict visibility
         ShadowProfile profile = new ShadowProfile(profileId, alias, encryptedData, caseId, actorId);
         shadowProfileDao.create(profile);
-        auditLogDao.create(new AuditLogEntry("CREATE_SHADOW_PROFILE", profileId, actorId));
+        cmdInvoker.invoke(new LogAuditEntryCommand("CREATE_SHADOW_PROFILE", profileId, actorId, auditLogDao));
         return ShadowProfileResult.SUCCESS;
     }
 
@@ -87,7 +89,7 @@ public class SecurityController {
         
         // Visibility restricted to creator and FBI Director
         if (!requestingAgentId.equals(profile.getCreatorAgentId()) && !DIRECTOR_ID.equals(requestingAgentId)) {
-            auditLogDao.create(new AuditLogEntry("UNAUTHORIZED_PROFILE_VIEW", profileId, requestingAgentId));
+            cmdInvoker.invoke(new LogAuditEntryCommand("UNAUTHORIZED_PROFILE_VIEW", profileId, requestingAgentId, auditLogDao));
             return "ACCESS DENIED: Unauthorized view attempt logged.";
         }
 
@@ -131,14 +133,12 @@ public class SecurityController {
         com.intellicase.domain.AppUser user = userDao.authenticate(username, password);
 
         if (user == null) {
-            auditLogDao.create(new AuditLogEntry(
-                "LOCKDOWN_AUTH_FAILED", username, username));
-            return LockdownAuthResult.CREDENTIAL_FAILED; // Or IDENTITY_FAILED
+            cmdInvoker.invoke(new LogAuditEntryCommand("LOCKDOWN_AUTH_FAILED", username, username, auditLogDao));
+            return LockdownAuthResult.CREDENTIAL_FAILED;
         }
-        
+
         if (!"FBI_DIRECTOR".equals(user.getRole())) {
-            auditLogDao.create(new AuditLogEntry(
-                "LOCKDOWN_AUTH_FAILED_NOT_DIRECTOR", username, username));
+            cmdInvoker.invoke(new LogAuditEntryCommand("LOCKDOWN_AUTH_FAILED_NOT_DIRECTOR", username, username, auditLogDao));
             return LockdownAuthResult.IDENTITY_FAILED;
         }
 
@@ -156,11 +156,9 @@ public class SecurityController {
         String timestamp = Instant.now().toString();
         SystemState.getInstance().activateLockdown(actorId, timestamp);
 
-        // Special Requirement 3: Log DOJ notification with exact timestamp
-        auditLogDao.create(new AuditLogEntry(
-            "ACTIVATE_LOCKDOWN", "SYSTEM", actorId));
-        auditLogDao.create(new AuditLogEntry(
-            "DOJ_NOTIFICATION_SENT", "DOJ-FREEZE-" + timestamp, actorId));
+        // Special Requirement 3: Log DOJ notification with exact timestamp (via Command Pattern)
+        cmdInvoker.invoke(new LogAuditEntryCommand("ACTIVATE_LOCKDOWN", "SYSTEM", actorId, auditLogDao));
+        cmdInvoker.invoke(new LogAuditEntryCommand("DOJ_NOTIFICATION_SENT", "DOJ-FREEZE-" + timestamp, actorId, auditLogDao));
 
         System.out.println("[UC-08] LOCKDOWN ACTIVATED at " + timestamp);
         System.out.println("[UC-08] DOJ notification dispatched.");
@@ -188,7 +186,7 @@ public class SecurityController {
         }
         int newLevel = agent.getClearanceLevel() + 1;
         agentDao.updateClearance(agentId, newLevel);
-        auditLogDao.create(new AuditLogEntry("PROMOTE_CLEARANCE", agentId, actorId));
+        cmdInvoker.invoke(new LogAuditEntryCommand("PROMOTE_CLEARANCE", agentId, actorId, auditLogDao));
         return true;
     }
 

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.intellicase.presentation.BiometricLoginController"
+           style="-fx-background-color: transparent;">
+
+    <VBox alignment="CENTER" spacing="0">
+
+        <!-- Top bar -->
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="12">
+            <padding><Insets top="10" right="24" bottom="10" left="24" /></padding>
+            <Button text="← BACK" styleClass="neon-button" onAction="#handleCancel"
+                    style="-fx-font-size: 11px; -fx-padding: 5 14;" />
+            <Label fx:id="modeLabel" text="BIOMETRIC AUTHENTICATION"
+                   styleClass="neon-chip" />
+        </HBox>
+
+        <!-- Main content -->
+        <VBox alignment="CENTER" VBox.vgrow="ALWAYS" spacing="24"
+              style="-fx-padding: 30 60;">
+
+            <!-- Camera feed card -->
+            <VBox styleClass="form-card" spacing="14" alignment="CENTER" maxWidth="680">
+                <padding><Insets top="28" right="36" bottom="28" left="36" /></padding>
+
+                <!-- Mode icon + title -->
+                <HBox alignment="CENTER" spacing="14">
+                    <Label text="🔒" style="-fx-font-size: 32px;" />
+                    <Label fx:id="headingLabel" text="BIOMETRIC LOGIN"
+                           styleClass="page-title" style="-fx-font-size: 22px;" />
+                </HBox>
+
+                <Label fx:id="instructionLabel"
+                       text="Initialising…"
+                       styleClass="page-subtitle"
+                       wrapText="true"
+                       textAlignment="CENTER" />
+
+                <Separator styleClass="neon-separator" />
+
+                <!-- Camera view with overlay -->
+                <StackPane>
+                    <!-- Camera live preview -->
+                    <ImageView fx:id="cameraView"
+                               fitWidth="540" fitHeight="320"
+                               preserveRatio="true"
+                               style="-fx-border-color: rgba(212,175,55,0.4);
+                                      -fx-border-width: 2;
+                                      -fx-border-radius: 8;
+                                      -fx-background-radius: 8;" />
+
+                    <!-- Scanning spinner shown while camera initialises -->
+                    <VBox fx:id="scanningIndicatorBox" alignment="CENTER" spacing="10"
+                          style="-fx-background-color: rgba(0,0,0,0.6);
+                                 -fx-background-radius: 8;
+                                 -fx-padding: 40;">
+                        <ProgressIndicator fx:id="spinner"
+                                           style="-fx-accent: #D4AF37;"
+                                           prefWidth="52" prefHeight="52" />
+                        <Label text="Starting camera…"
+                               style="-fx-text-fill: rgba(212,175,55,0.8); -fx-font-size: 12px;" />
+                    </VBox>
+
+                    <!-- Corner brackets — decorative HUD frame -->
+                    <Label text="⌜" style="-fx-font-size: 32px; -fx-text-fill: #D4AF37;
+                                           -fx-opacity: 0.7;"
+                           StackPane.alignment="TOP_LEFT"
+                           translateX="4" translateY="4" />
+                    <Label text="⌝" style="-fx-font-size: 32px; -fx-text-fill: #D4AF37;
+                                           -fx-opacity: 0.7;"
+                           StackPane.alignment="TOP_RIGHT"
+                           translateX="-4" translateY="4" />
+                    <Label text="⌞" style="-fx-font-size: 32px; -fx-text-fill: #D4AF37;
+                                           -fx-opacity: 0.7;"
+                           StackPane.alignment="BOTTOM_LEFT"
+                           translateX="4" translateY="-4" />
+                    <Label text="⌟" style="-fx-font-size: 32px; -fx-text-fill: #D4AF37;
+                                           -fx-opacity: 0.7;"
+                           StackPane.alignment="BOTTOM_RIGHT"
+                           translateX="-4" translateY="-4" />
+                </StackPane>
+
+                <!-- Status bar -->
+                <HBox alignment="CENTER" spacing="8">
+                    <Label text="●" style="-fx-text-fill: #00ff88; -fx-font-size: 10px;" />
+                    <Label fx:id="statusLabel" text="Initialising camera…"
+                           style="-fx-text-fill: #00ff88; -fx-font-size: 12px;" />
+                </HBox>
+
+                <Separator styleClass="neon-separator" />
+
+                <!-- Cancel -->
+                <Button text="✕  CANCEL — USE PASSWORD INSTEAD"
+                        styleClass="neon-button"
+                        onAction="#handleCancel"
+                        style="-fx-font-size: 12px; -fx-padding: 8 24;" />
+
+                <Label text="QR code valid for 5 minutes  •  Face templates stored locally and encrypted"
+                       style="-fx-font-size: 10px; -fx-text-fill: rgba(201,169,77,0.4);
+                              -fx-font-style: italic;" />
+            </VBox>
+        </VBox>
+    </VBox>
+</StackPane>

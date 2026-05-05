@@ -29,6 +29,7 @@ public final class ViewRouter {
 
     public void setContentPane(StackPane contentPane) {
         this.contentPane = contentPane;
+        this.currentView = null;
     }
 
     private Runnable onNavigation;

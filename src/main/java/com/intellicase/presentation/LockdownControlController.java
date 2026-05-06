@@ -3,7 +3,6 @@ package com.intellicase.presentation;
 import java.time.Instant;
 
 import com.intellicase.application.CaseController;
-import com.intellicase.application.SecurityController;
 import com.intellicase.application.SystemState;
 import com.intellicase.dao.AuditLogDao;
 import com.intellicase.domain.AuditLogEntry;
@@ -11,14 +10,13 @@ import com.intellicase.domain.AuditLogEntry;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 /**
  * Controller for LockdownControl.fxml — UC-15 Deactivate System Audit Lockdown.
- * Implements 3-step deactivation: ledger sync, MFA auth, override + confirm.
- * Covers extensions E1 (auth failure), E2 (node sync delay), E3 (unauthorized admin).
+ * Implements 2-step deactivation: ledger sync, then override code + confirm.
+ * Covers extensions E2 (node sync delay).
  */
 public class LockdownControlController {
 
@@ -40,10 +38,6 @@ public class LockdownControlController {
     @FXML private Label ledgerStatusLabel;
 
     // Step 2
-    @FXML private TextField directorIdField;
-    @FXML private PasswordField directorPasswordField;
-
-    // Step 3
     @FXML private TextField overrideCodeField;
     @FXML private TextField confirmTextField;
     @FXML private Button deactivateBtn;
@@ -94,39 +88,8 @@ public class LockdownControlController {
             return;
         }
 
-        // Step 2: MFA validation
-        String dirId = directorIdField.getText().trim();
-        String dirPass = directorPasswordField.getText().trim();
-        if (dirId.isEmpty() || dirPass.isEmpty()) {
-            showLabel(deactivateResultLabel,
-                "✗  Step 2 Required: Enter Director ID and password.", "#ff4444");
-            return;
-        }
-
-        // E3: Block non-Director admins (regular admin accounts start with "ADMIN-")
-        if (dirId.startsWith("ADMIN-")) {
-            auditLogDao.create(new AuditLogEntry(
-                "DEACTIVATION_BLOCKED_E3", dirId, dirId));
-            showLabel(deactivateResultLabel,
-                "✗  E3: UNAUTHORIZED — Regular admins require Director co-authorization.",
-                "#ff4444");
-            return;
-        }
-
-        // E1: Check Director credentials via DB
-        SecurityController securityController = new SecurityController();
-        SecurityController.LockdownAuthResult authResult = securityController.authenticateDirector(dirId, dirPass);
-        
-        if (authResult != SecurityController.LockdownAuthResult.SUCCESS) {
-            auditLogDao.create(new AuditLogEntry(
-                "DEACTIVATION_AUTH_FAILED_E1", dirId, dirId));
-            showLabel(deactivateResultLabel,
-                "✗  E1: AUTHENTICATION FAILURE — Access denied or unauthorized role.",
-                "#ff4444");
-            return;
-        }
-
-        // Step 3: Override code
+        // Step 2: Override code
+        String dirId = ACTOR_ID;
         String code = overrideCodeField.getText().trim();
         String confirm = confirmTextField.getText().trim();
         if (code.isEmpty()) {

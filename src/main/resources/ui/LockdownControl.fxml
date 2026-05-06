@@ -50,7 +50,7 @@
                 <Label text="🔓" styleClass="card-icon" />
                 <VBox spacing="2">
                     <Label text="LOCKDOWN DEACTIVATION SEQUENCE" styleClass="audit-title" />
-                    <Label text="Multi-factor authorization required. All steps must complete in order."
+                    <Label text="All steps must complete in order."
                            styleClass="audit-subtitle" />
                 </VBox>
             </HBox>
@@ -74,39 +74,10 @@
 
                 <Separator styleClass="neon-separator" />
 
-                <!-- Step 2: MFA Credentials -->
+                <!-- Step 2: Override Code + Confirm -->
                 <VBox spacing="12" styleClass="lockdown-step">
                     <HBox spacing="10" alignment="CENTER_LEFT">
                         <Label text="STEP 2" styleClass="step-badge" />
-                        <Label text="MULTI-FACTOR AUTHENTICATION  (SR-1 / E1 / E3)" styleClass="field-label" />
-                    </HBox>
-                    <GridPane hgap="16" vgap="10">
-                        <columnConstraints>
-                            <ColumnConstraints percentWidth="50" />
-                            <ColumnConstraints percentWidth="50" />
-                        </columnConstraints>
-                        <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                            <Label text="DIRECTOR ID" styleClass="field-label" />
-                            <TextField fx:id="directorIdField" promptText="DIR-0001"
-                                       styleClass="text-field" />
-                        </VBox>
-                        <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                            <Label text="PASSWORD / MFA CODE" styleClass="field-label" />
-                            <PasswordField fx:id="directorPasswordField"
-                                          promptText="Enter Director password"
-                                          styleClass="text-field" />
-                        </VBox>
-                    </GridPane>
-                    <Label text="ℹ  Credentials:  ID = DIR-0001  |  Password = BLACKSITE-ALPHA  |  E1 test: wrong password  |  E3: ADMIN-001 / any"
-                           styleClass="lockdown-hint" />
-                </VBox>
-
-                <Separator styleClass="neon-separator" />
-
-                <!-- Step 3: Override Code + Confirm -->
-                <VBox spacing="12" styleClass="lockdown-step">
-                    <HBox spacing="10" alignment="CENTER_LEFT">
-                        <Label text="STEP 3" styleClass="step-badge" />
                         <Label text="OVERRIDE CODE + DEACTIVATION CONFIRMATION  (E2)" styleClass="field-label" />
                     </HBox>
                     <GridPane hgap="16" vgap="10">
@@ -171,10 +142,6 @@
             <VBox styleClass="form-card" spacing="14">
                 <Label text="🔐  QUICK TEST GUIDE" styleClass="section-title" />
                 <Separator styleClass="neon-separator" />
-                <Label text="Director ID:" styleClass="field-label" />
-                <Label text="DIR-0001" styleClass="neon-label" />
-                <Label text="Password:" styleClass="field-label" />
-                <Label text="BLACKSITE-ALPHA" styleClass="neon-label" />
                 <Label text="Override Code:" styleClass="field-label" />
                 <Label text="NCIS-X-99" styleClass="neon-label" />
                 <Label text="Confirmation:" styleClass="field-label" />

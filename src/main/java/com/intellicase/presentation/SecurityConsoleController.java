@@ -1,14 +1,12 @@
 package com.intellicase.presentation;
 
 import com.intellicase.application.SecurityController;
-import com.intellicase.application.SecurityController.LockdownAuthResult;
 import com.intellicase.application.SystemState;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -35,10 +33,6 @@ public class SecurityConsoleController {
     @FXML private Label upsStatusLabel;
 
     // UC-08 Step 2
-    @FXML private TextField directorIdField;
-    @FXML private PasswordField directorPasswordField;
-
-    // UC-08 Step 3
     @FXML private Button lockdownBtn;
     @FXML private Label lockdownResultLabel;
     @FXML private VBox dojPanel;
@@ -123,39 +117,8 @@ public class SecurityConsoleController {
                 "✗  Step 1 Required: UPS check must pass before initiating lockdown.", "#ff4444");
             return;
         }
-        // Validate Director credentials (Step 2)
-        String dirId = directorIdField.getText().trim();
-        String dirPass = directorPasswordField.getText().trim();
-        if (dirId.isEmpty() || dirPass.isEmpty()) {
-            showLabel(lockdownResultLabel,
-                "✗  Step 2 Required: Enter Director ID and password.", "#ff4444");
-            return;
-        }
-
-        LockdownAuthResult authResult = securityController.authenticateDirector(dirId, dirPass);
-        switch (authResult) {
-            case IDENTITY_FAILED:
-                // E1: biometric/ID failure
-                showLabel(lockdownResultLabel,
-                    "✗  E1: IDENTITY VERIFICATION FAILED — IT Security has been alerted.",
-                    "#ff4444");
-                return;
-            case CREDENTIAL_FAILED:
-                // E1: wrong password
-                showLabel(lockdownResultLabel,
-                    "✗  E1: INVALID CREDENTIALS — Access denied. Incident logged.", "#ff4444");
-                return;
-            case PASSWORD_EXPIRED:
-                // E3: expired password
-                showLabel(lockdownResultLabel,
-                    "⚠  E3: DIRECTOR PASSWORD EXPIRED — MFA reset required. Lockdown paused.",
-                    "#ffaa00");
-                return;
-            default:
-                break;
-        }
-
         // Execute lockdown
+        String dirId = ACTOR_ID;
         boolean success = securityController.activateAuditLockdown(dirId);
         if (success) {
             showLabel(lockdownResultLabel,
